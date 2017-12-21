@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('groups', 'GroupsController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
