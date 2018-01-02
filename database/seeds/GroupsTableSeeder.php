@@ -14,12 +14,12 @@ class GroupsTableSeeder extends Seeder
     {
       $faker = Faker\Factory::create();
 
-
       for ($i=0; $i < 10; $i++) {
         $group = new Groups();
         $group -> name = $faker->name;
         $group -> description = $faker->text;
         $group -> administrator_id = $faker->randomDigitNotNull;
+        $group -> icons_id = $faker->randomDigitNotNull;
         $group -> save();
       }
     }
