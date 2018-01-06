@@ -23,6 +23,5 @@ class UsersTableSeeder extends Seeder
         $user -> password = bcrypt($faker->word);
         $user -> save();
       }
-
     }
 }
