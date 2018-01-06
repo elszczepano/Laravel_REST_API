@@ -19,7 +19,6 @@ class GroupsTableSeeder extends Seeder
         $group -> name = $faker->name;
         $group -> description = $faker->text;
         $group -> administrator_id = $faker->randomDigitNotNull;
-        $group -> icons_id = $faker->randomDigitNotNull;
         $group -> save();
       }
     }
