@@ -26,4 +26,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function groups() {
+      return $this->belongsToMany(Groups::class, 'users_has_groups', 'users_id', 'groups_id')->withTimestamps();
+    }
 }
