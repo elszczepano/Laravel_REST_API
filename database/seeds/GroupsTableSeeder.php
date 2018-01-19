@@ -13,13 +13,10 @@ class GroupsTableSeeder extends Seeder
     public function run()
     {
       $faker = Faker\Factory::create();
-
-      for ($i=0; $i < 10; $i++) {
         $group = new Groups();
-        $group -> name = $faker->name;
+        $group -> name = ('Fishing fanatics');
         $group -> description = $faker->text;
-        $group -> administrator_id = $faker->randomDigitNotNull;
+        $group -> icon_id = (1);
         $group -> save();
-      }
     }
 }

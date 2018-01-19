@@ -16,6 +16,8 @@ class PostsTableSeeder extends Seeder
 
       for ($i=0; $i < 10; $i++) {
         $post = new Posts();
+        $post -> user_id = (1);
+        $post -> group_id = (1);
         $post -> content = $faker->text;
         $post -> rating = $faker->randomDigitNotNull;
         $post -> save();
