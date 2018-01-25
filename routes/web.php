@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::resource('groups', 'GroupsController');
+Route::resource('edit', 'EditAccountDetailsController');
 
 Auth::routes();
 
