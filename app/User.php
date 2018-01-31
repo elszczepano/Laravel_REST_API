@@ -28,6 +28,9 @@ class User extends Authenticatable
     ];
 
     public function groups() {
-      return $this->belongsToMany(Groups::class, 'users_has_groups', 'users_id', 'groups_id')->withTimestamps();
+      return $this->belongsToMany(Groups::class, 'users_has_groups', 'user_id', 'group_id', 'role_id')->withTimestamps();
+    }
+    public function notifications() {
+      return $this->belongsToMany(notifications::class, 'users_has_notifications', 'user_id', 'notification_id')->withTimestamps();
     }
 }
