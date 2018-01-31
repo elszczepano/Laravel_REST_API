@@ -22,6 +22,5 @@ class PostsTableSeeder extends Seeder
         $post -> rating = $faker->randomDigitNotNull;
         $post -> save();
       }
-
     }
 }
