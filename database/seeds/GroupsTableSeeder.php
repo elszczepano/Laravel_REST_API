@@ -18,5 +18,11 @@ class GroupsTableSeeder extends Seeder
         $group -> description = $faker->text;
         $group -> icon_id = (1);
         $group -> save();
+        
+        $group = new Groups();
+        $group -> name = ('IT Devs');
+        $group -> description = $faker->text;
+        $group -> icon_id = (1);
+        $group -> save();
     }
 }
