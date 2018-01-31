@@ -31,7 +31,7 @@ class User extends Authenticatable
     return $this->belongsToMany(Groups::class, 'users_has_groups', 'user_id', 'group_id')->withTimestamps();
   }
   public function roles() {
-     return $this->belongsToMany(Roles::class, 'users_has_groups','role_id', 'user_id')->withTimestamps();
+     return $this->belongsToMany(Roles::class, 'users_has_groups', 'user_id', 'role_id')->withTimestamps();
   }
    public function hasAnyRole($roles)
    {
@@ -50,10 +50,10 @@ class User extends Authenticatable
    }
    public function hasRole($role)
    {
-       if ($this->roles()->where('name', $role)->first()) {
+       if ($this->roles()->where('roles.name', $role)->first()) {
            return true;
        }
-       var_dump($this->roles()->where('name', 'Admin')->first());
+
        return false;
    }
 }
