@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Posts;
+use Illuminate\Http\Request;
+
 class PostsController extends Controller
 {
+    public function __construct() {
+      $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,6 +18,7 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Posts::all();
+        return view('group.index', compact('posts'));
     }
 
     /**
