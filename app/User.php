@@ -27,10 +27,33 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function groups() {
-      return $this->belongsToMany(Groups::class, 'users_has_groups', 'user_id', 'group_id', 'role_id')->withTimestamps();
-    }
-    public function notifications() {
-      return $this->belongsToMany(notifications::class, 'users_has_notifications', 'user_id', 'notification_id')->withTimestamps();
-    }
+  public function groups() {
+    return $this->belongsToMany(Groups::class, 'users_has_groups', 'user_id', 'group_id')->withTimestamps();
+  }
+  public function roles() {
+     return $this->belongsToMany(Roles::class, 'users_has_groups','role_id', 'user_id')->withTimestamps();
+  }
+   public function hasAnyRole($roles)
+   {
+       if (is_array($roles)) {
+           foreach ($roles as $role) {
+               if ($this->hasRole($role)) {
+                   return true;
+               }
+           }
+       } else {
+           if ($this->hasRole($roles)) {
+               return true;
+           }
+       }
+       return false;
+   }
+   public function hasRole($role)
+   {
+       if ($this->roles()->where('name', $role)->first()) {
+           return true;
+       }
+       var_dump($this->roles()->where('name', 'Admin')->first());
+       return false;
+   }
 }

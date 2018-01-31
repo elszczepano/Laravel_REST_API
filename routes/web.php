@@ -15,8 +15,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group([
+    'middleware' => 'roles',
+    'roles' => 'Admin'
+], function() {
+    Route::resource('edit-group', 'EditGroupController');
+});
+
+Route::resource('posts', 'PostsController');
 Route::resource('groups', 'GroupsController');
-Route::resource('edit', 'EditAccountDetailsController');
 
 Auth::routes();
 
