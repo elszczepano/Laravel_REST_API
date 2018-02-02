@@ -21,7 +21,7 @@ class UsersHasGroupsSeeder extends Seeder
       $pivot = new UsersHasGroups();
       $pivot -> user_id = (2);
       $pivot -> group_id = (2);
-      $pivot -> role_id = (1);
+      $pivot -> role_id = (3);
       $pivot -> save();
     }
 }
