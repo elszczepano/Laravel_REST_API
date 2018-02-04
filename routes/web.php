@@ -12,15 +12,39 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+  return view('welcome');
 });
 
 Route::group([
-    'middleware' => 'roles',
-    'roles' => 'Admin'
+  'middleware' => 'roles',
+  'roles' => 'Admin'
 ], function() {
-    Route::resource('edit-group', 'EditGroupController');
+  Route::get('edit-group',[
+    'uses' => 'EditGroupController@index',
+    'as' => 'edit-group.index'
+  ]);
 });
+
+Route::get('posts/create', [
+  'uses' => 'PostsController@create',
+  'as' => 'posts.create'
+]);
+Route::post('posts/store', [
+  'uses' => 'postsController@store',
+  'as' => 'posts.store'
+]);
+Route::get('posts/edit/{page}', [
+  'uses' => 'postsController@edit',
+  'as' => 'posts.edit'
+]);
+Route::put('posts/{page}', [
+  'uses' => 'postsController@update',
+  'as' => 'posts.update'
+]);
+Route::delete('posts/{page}', [
+  'uses' => 'postsController@destroy',
+  'as' => 'posts.delete'
+]);
 
 Route::resource('posts', 'PostsController');
 Route::resource('groups', 'GroupsController');
