@@ -33,15 +33,15 @@ Route::post('posts/store', [
   'uses' => 'postsController@store',
   'as' => 'posts.store'
 ]);
-Route::get('posts/edit/{page}', [
+Route::get('posts/edit/{post}', [
   'uses' => 'postsController@edit',
   'as' => 'posts.edit'
 ]);
-Route::put('posts/{page}', [
+Route::put('posts/{post}', [
   'uses' => 'postsController@update',
   'as' => 'posts.update'
 ]);
-Route::delete('posts/{page}', [
+Route::delete('posts/{post}', [
   'uses' => 'postsController@destroy',
   'as' => 'posts.delete'
 ]);

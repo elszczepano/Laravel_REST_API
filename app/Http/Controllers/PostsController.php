@@ -19,7 +19,7 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Posts::all();
-        return view('group.index', compact('posts'));
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -58,24 +58,25 @@ class PostsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Posts $posts
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Posts $posts)
     {
-        //
+        return view('posts.edit', compact('posts'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  PostsRequest  $request
+     * @param  Posts $posts
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostsRequest  $request, Posts $posts)
     {
-        //
+      $posts->update($request->all());
+      return redirect()->route('posts.index');
     }
 
     /**
