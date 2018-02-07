@@ -6,34 +6,34 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateGroupsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::create('groups', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->text('description');
-            $table->integer('icon_id')->unsigned();
-            $table->timestamps();
-        });
-        Schema::table('groups', function (Blueprint $table) {
-            $table->foreign('icon_id')
-            ->references('id')
-            ->on('icons');
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('groups');
-    }
+  /**
+  * Run the migrations.
+  *
+  * @return void
+  */
+  public function up()
+  {
+    Schema::create('groups', function (Blueprint $table) {
+      $table->increments('id');
+      $table->string('name');
+      $table->text('description');
+      $table->integer('icon_id')->unsigned();
+      $table->timestamps();
+    });
+    Schema::table('groups', function (Blueprint $table) {
+      $table->foreign('icon_id')
+      ->references('id')
+      ->on('icons');
+    });
+  }
+  
+  /**
+  * Reverse the migrations.
+  *
+  * @return void
+  */
+  public function down()
+  {
+    Schema::dropIfExists('groups');
+  }
 }

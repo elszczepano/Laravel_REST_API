@@ -6,38 +6,38 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateUsersTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('surname');
-            $table->text('avatar')->nullable();
-            $table->string('email')->unique();
-            $table->date('birth_date')->nullable();
-            $table->string('password');
-            $table->string('api_token', 60)->unique()->nullable();
-            $table->rememberToken();
-            $table->timestamps();
+  /**
+  * Run the migrations.
+  *
+  * @return void
+  */
+  public function up()
+  {
+    Schema::create('users', function (Blueprint $table) {
+      $table->increments('id');
+      $table->string('name');
+      $table->string('surname');
+      $table->text('avatar')->nullable();
+      $table->string('email')->unique();
+      $table->date('birth_date')->nullable();
+      $table->string('password');
+      $table->string('api_token', 60)->unique()->nullable();
+      $table->rememberToken();
+      $table->timestamps();
 
-        });
-    }
+    });
+  }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('users');
-        Schema::table('users', function (Blueprint $table) {
-        $table->dropColumn(['api_token']);
-        });
-    }
+  /**
+  * Reverse the migrations.
+  *
+  * @return void
+  */
+  public function down()
+  {
+    Schema::dropIfExists('users');
+    Schema::table('users', function (Blueprint $table) {
+      $table->dropColumn(['api_token']);
+    });
+  }
 }
