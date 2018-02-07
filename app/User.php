@@ -26,10 +26,10 @@ class User extends Authenticatable
     ];
 
   public function groups() {
-    return $this->belongsToMany(Groups::class, 'users_has_groups', 'user_id', 'group_id')->withTimestamps();
+    return $this->belongsToMany(Group::class, 'users_has_groups', 'user_id', 'group_id')->withTimestamps();
   }
   public function roles() {
-     return $this->belongsToMany(Roles::class, 'users_has_groups', 'user_id', 'role_id')->withTimestamps();
+     return $this->belongsToMany(Role::class, 'users_has_groups', 'user_id', 'role_id')->withTimestamps();
   }
    public function hasAnyRole($roles)
    {
