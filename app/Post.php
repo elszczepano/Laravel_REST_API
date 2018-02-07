@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Notifications extends Model
+class Post extends Model
 {
     protected $fillable = ['content'];
 }

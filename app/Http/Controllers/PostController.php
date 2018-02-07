@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Groups;
+use App\Http\Requests\PostsRequest;
+use App\Post;
 use Illuminate\Http\Request;
 
-class GroupsController extends Controller
+class PostController extends Controller
 {
-  public function __construct() {
-    $this->middleware('auth');
-  }
+    public function __construct() {
+      $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,9 +18,8 @@ class GroupsController extends Controller
      */
     public function index()
     {
-      $groups = Groups::all();
-
-      return view('groups.index', compact('groups'));
+        $posts = Post::all();
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -29,18 +29,19 @@ class GroupsController extends Controller
      */
     public function create()
     {
-        //
+      return view('posts.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  PostsRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostsRequest $request)
     {
-        //
+      Post::create($request->all());
+      return redirect()->route('posts.index');
     }
 
     /**
@@ -57,24 +58,25 @@ class GroupsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Post $posts
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Posts $posts)
     {
-        //
+        return view('posts.edit', compact('posts'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  PostsRequest  $request
+     * @param  Post $posts
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostsRequest  $request, Posts $posts)
     {
-        //
+      $posts->update($request->all());
+      return redirect()->route('posts.index');
     }
 
     /**
