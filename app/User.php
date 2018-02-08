@@ -7,50 +7,56 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+  use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['name', 'surname', 'avatar', 'email', 'birth_date', 'password'];
+  /**
+  * The attributes that are mass assignable.
+  *
+  * @var array
+  */
+  protected $fillable = ['name', 'surname', 'avatar', 'email', 'birth_date', 'password'];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+  /**
+  * The attributes that should be hidden for arrays.
+  *
+  * @var array
+  */
+  protected $hidden = [
+    'password', 'remember_token',
+  ];
+  public function generateToken()
+  {
+    $this->api_token = str_random(60);
+    $this->save();
 
+    return $this->api_token;
+  }
   public function groups() {
     return $this->belongsToMany(Group::class, 'users_has_groups', 'user_id', 'group_id')->withTimestamps();
   }
   public function roles() {
-     return $this->belongsToMany(Role::class, 'users_has_groups', 'user_id', 'role_id')->withTimestamps();
+    return $this->belongsToMany(Role::class, 'users_has_groups', 'user_id', 'role_id')->withTimestamps();
   }
-   public function hasAnyRole($roles)
-   {
-       if (is_array($roles)) {
-           foreach ($roles as $role) {
-               if ($this->hasRole($role)) {
-                   return true;
-               }
-           }
-       } else {
-           if ($this->hasRole($roles)) {
-               return true;
-           }
-       }
-       return false;
-   }
-   public function hasRole($role)
-   {
-       if ($this->roles()->where('roles.name', $role)->first()) {
-           return true;
-       }
-       return false;
-   }
+  public function hasAnyRole($roles)
+  {
+    if (is_array($roles)) {
+      foreach ($roles as $role) {
+        if ($this->hasRole($role)) {
+          return true;
+        }
+      }
+    } else {
+      if ($this->hasRole($roles)) {
+        return true;
+      }
+    }
+    return false;
+  }
+  public function hasRole($role)
+  {
+    if ($this->roles()->where('roles.name', $role)->first()) {
+      return true;
+    }
+    return false;
+  }
 }
