@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Groups;
+use App\Group;
 
-class GroupsTableSeeder extends Seeder
+class GroupTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,13 +13,13 @@ class GroupsTableSeeder extends Seeder
     public function run()
     {
       $faker = Faker\Factory::create();
-        $group = new Groups();
+        $group = new Group();
         $group -> name = ('Fishing fanatics');
         $group -> description = $faker->text;
         $group -> icon_id = (1);
         $group -> save();
-        
-        $group = new Groups();
+
+        $group = new Group();
         $group -> name = ('IT Devs');
         $group -> description = $faker->text;
         $group -> icon_id = (1);

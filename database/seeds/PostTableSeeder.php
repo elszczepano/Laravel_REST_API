@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Posts;
+use App\Post;
 
-class PostsTableSeeder extends Seeder
+class PostTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class PostsTableSeeder extends Seeder
       $faker = Faker\Factory::create();
 
       for ($i=0; $i < 10; $i++) {
-        $post = new Posts();
+        $post = new Post();
         $post -> user_id = (1);
         $post -> group_id = (1);
         $post -> content = $faker->text;
@@ -23,7 +23,7 @@ class PostsTableSeeder extends Seeder
         $post -> save();
       }
       for ($i=0; $i < 10; $i++) {
-        $post = new Posts();
+        $post = new Post();
         $post -> user_id = (2);
         $post -> group_id = (2);
         $post -> content = $faker->text;

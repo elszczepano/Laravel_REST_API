@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Icons;
+use App\Icon;
 
-class IconsTableSeeder extends Seeder
+class IconTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +12,7 @@ class IconsTableSeeder extends Seeder
      */
     public function run()
     {
-      $icon = new Icons();
+      $icon = new Icon();
       $icon -> name = ('envelope');
       $icon -> save();
     }
