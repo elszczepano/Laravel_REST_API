@@ -12,11 +12,12 @@ class LoginController extends Controller
 {
   use AuthenticatesUsers;
 
-  public function login(Request $request) {
+  public function login(Request $request)
+  {
     $this->validateLogin($request);
 
     if ($this->attemptLogin($request)) {
-      $user = $this->guard('api')->user();
+      $user = $this->guard()->user();
       $user->generateToken();
 
       return response()->json([
@@ -27,7 +28,8 @@ class LoginController extends Controller
     return $this->sendFailedLoginResponse($request);
   }
 
-  public function logout(Request $request) {
+  public function logout(Request $request)
+  {
     $user = Auth::guard('api')->user();
 
     if ($user) {
