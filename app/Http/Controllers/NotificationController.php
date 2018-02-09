@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Notification;
 
 class NotificationController extends Controller
 {
@@ -13,7 +14,7 @@ class NotificationController extends Controller
      */
     public function index()
     {
-        //
+        return Notification::all();
     }
 
     /**
@@ -34,51 +35,46 @@ class NotificationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      return Notification::create($request->all());
+
+      return response()->json($notification, 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  App\Notification $notification
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Notification $notification)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return $notification;
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Notification $notification
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Notification $notification)
     {
-        //
+      $notification->update($request->all());
+
+      return response()->json($notification, 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Notification $notification
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+     public function delete(Notification $notification)
+     {
+       $notification->delete();
+
+       return response()->json(null, 204);
+     }
 }
