@@ -25,30 +25,6 @@ Route::group([
   ]);
 });
 
-Route::get('posts/create', [
-  'uses' => 'PostsController@create',
-  'as' => 'posts.create'
-]);
-Route::post('posts/store', [
-  'uses' => 'postsController@store',
-  'as' => 'posts.store'
-]);
-Route::get('posts/edit/{post}', [
-  'uses' => 'postsController@edit',
-  'as' => 'posts.edit'
-]);
-Route::put('posts/{post}', [
-  'uses' => 'postsController@update',
-  'as' => 'posts.update'
-]);
-Route::delete('posts/{post}', [
-  'uses' => 'postsController@destroy',
-  'as' => 'posts.delete'
-]);
-
-Route::resource('posts', 'PostsController');
-Route::resource('groups', 'GroupsController');
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
