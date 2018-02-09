@@ -3,10 +3,19 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
+  protected function unauthenticated($request, AuthenticationException $exception)
+  {
+      if ($request->expectsJson()) {
+          return response()->json(['error' => 'Unauthenticated.'], 401);
+      }
+
+      return redirect()->guest('login');
+  }
     /**
      * A list of the exception types that are not reported.
      *
@@ -53,7 +62,14 @@ class Handler extends ExceptionHandler
             'error' => 'Resource not found'
         ], 404);
       }
-      
+
       return parent::render($request, $exception);
     }
+    /**
+     * Convert an authentication exception into an unauthenticated response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Auth\AuthenticationException  $exception
+     * @return \Illuminate\Http\Response
+     */
 }
