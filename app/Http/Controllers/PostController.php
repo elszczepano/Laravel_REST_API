@@ -8,9 +8,6 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function __construct() {
-      $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -18,8 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
-        return view('posts.index', compact('posts'));
+        return Post::all();
     }
 
     /**
@@ -29,7 +25,7 @@ class PostController extends Controller
      */
     public function create()
     {
-      return view('posts.create');
+      //
     }
 
     /**
@@ -38,32 +34,22 @@ class PostController extends Controller
      * @param  PostsRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostsRequest $request)
+    public function store(Request $request)
     {
-      Post::create($request->all());
-      return redirect()->route('posts.index');
+      return Post::create($request->all());
+
+      return response()->json($post, 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
      * @param  \App\Post $posts
      * @return \Illuminate\Http\Response
      */
-    public function edit(Posts $posts)
+    public function show(Post $post)
     {
-        return view('posts.edit', compact('posts'));
+        return $post;
     }
 
     /**
@@ -73,20 +59,24 @@ class PostController extends Controller
      * @param  Post $posts
      * @return \Illuminate\Http\Response
      */
-    public function update(PostsRequest  $request, Posts $posts)
-    {
-      $posts->update($request->all());
-      return redirect()->route('posts.index');
-    }
+     public function update(Request $request, Post $post)
+     {
+       $post->update($request->all());
+
+       return response()->json($post, 200);
+     }
+
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Post $posts
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+     public function delete(Post $post)
     {
-        //
+       $post->delete();
+
+       return response()->json(null, 204);
     }
 }
