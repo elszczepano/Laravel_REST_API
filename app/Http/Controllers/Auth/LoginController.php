@@ -30,7 +30,7 @@ class LoginController extends Controller
 
   public function logout(Request $request)
   {
-    $user = Auth::guard('api')->user();
+    $user = Auth::guard()->user();
 
     if ($user) {
       $user->api_token = null;

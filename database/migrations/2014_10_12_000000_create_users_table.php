@@ -22,7 +22,6 @@ class CreateUsersTable extends Migration
       $table->date('birth_date')->nullable();
       $table->string('password');
       $table->string('api_token', 60)->unique()->nullable();
-      $table->rememberToken();
       $table->timestamps();
 
     });
