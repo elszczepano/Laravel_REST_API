@@ -9,6 +9,19 @@ Route::group(['middleware' => 'auth:api'], function() {
   Route::post('user', 'UserController@store');
   Route::put('user/{user}', 'UserController@update');
   Route::delete('user/{user}', 'UserController@delete');
+
+  Route::get('group', 'GroupController@index');
+  Route::get('group/{group}', 'GroupController@show');
+  Route::post('group', 'GroupController@store');
+  Route::put('group/{group}', 'GroupController@update');
+  Route::delete('group/{group}', 'GroupController@delete');
+
+  Route::get('post', 'PostController@index');
+  Route::get('post/{post}', 'PostController@show');
+  Route::post('post', 'PostController@store');
+  Route::put('post/{post}', 'PostController@update');
+  Route::delete('post/{post}', 'PostController@delete');
+
 });
 
 Route::post('register', 'Auth\RegisterController@register');
