@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
   use Notifiable;
-  
+
   protected $fillable = ['name', 'surname', 'avatar', 'email', 'birth_date', 'api_token', 'password'];
   protected $hidden = ['id', 'password'];
 
@@ -19,6 +19,7 @@ class User extends Authenticatable
 
     return $this->api_token;
   }
+  
   public function groups() {
     return $this->belongsToMany(Group::class, 'users_has_groups', 'user_id', 'group_id')->withTimestamps();
   }
