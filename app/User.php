@@ -8,22 +8,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
   use Notifiable;
+  
+  protected $fillable = ['name', 'surname', 'avatar', 'email', 'birth_date', 'api_token', 'password'];
+  protected $hidden = ['id', 'password'];
 
-  /**
-  * The attributes that are mass assignable.
-  *
-  * @var array
-  */
-  protected $fillable = ['name', 'surname', 'avatar', 'email', 'birth_date', 'api_token'];
-
-  /**
-  * The attributes that should be hidden for arrays.
-  *
-  * @var array
-  */
-  protected $hidden = [
-    'password', 'remember_token',
-  ];
   public function generateToken()
   {
     $this->api_token = str_random(60);
