@@ -16,7 +16,8 @@ class CreateGroupsTable extends Migration
     Schema::create('groups', function (Blueprint $table) {
       $table->increments('id');
       $table->string('name');
-      $table->text('description');
+      $table->text('description')->nullable();
+      $table->text('background_image')->nullable();
       $table->integer('icon_id')->unsigned();
       $table->timestamps();
     });
@@ -26,7 +27,7 @@ class CreateGroupsTable extends Migration
       ->on('icons');
     });
   }
-  
+
   /**
   * Reverse the migrations.
   *
