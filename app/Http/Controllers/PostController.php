@@ -53,6 +53,17 @@ class PostController extends Controller
   }
 
   /**
+  * Show the form for editing the specified resource.
+  *
+  * @param  \App\Post $post
+  * @return Response
+  */
+  public function edit(Post $post)
+  {
+    return $post;
+  }
+
+  /**
   * Update the specified resource in storage.
   *
   * @param  Post $posts
@@ -64,7 +75,6 @@ class PostController extends Controller
 
     return response()->json($post, 200);
   }
-
 
   /**
   * Remove the specified resource from storage.

@@ -50,6 +50,17 @@ class CommentController extends Controller
   }
 
   /**
+  * Show the form for editing the specified resource.
+  *
+  * @param  \App\Comment $comment
+  * @return Response
+  */
+  public function edit(Comment $comment)
+  {
+    return $comment;
+  }
+
+  /**
   * Update the specified resource in storage.
   *
   * @param  \Illuminate\Http\Request  $request

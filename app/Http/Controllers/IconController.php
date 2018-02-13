@@ -16,7 +16,7 @@ class IconController extends Controller
   {
     return Icon::all();
   }
-  
+
   /**
   * Show the form for creating a new resource.
   *
@@ -38,6 +38,17 @@ class IconController extends Controller
     return Icon::create($request->all());
 
     return response()->json($icon, 201);
+  }
+
+  /**
+  * Show the form for editing the specified resource.
+  *
+  * @param  \App\Icon $icon
+  * @return Response
+  */
+  public function edit(Icon $icon)
+  {
+    return $icon;
   }
 
   /**

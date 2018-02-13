@@ -51,6 +51,16 @@ class UserController extends Controller
     return $user;
   }
   /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\User $user
+     * @return Response
+     */
+    public function edit(User $user)
+    {
+      return $user;
+    }
+  /**
   * Update the specified resource in storage.
   *
   * @param  \Illuminate\Http\Request  $request

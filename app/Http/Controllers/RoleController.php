@@ -52,6 +52,17 @@ class RoleController extends Controller
   }
 
   /**
+  * Show the form for editing the specified resource.
+  *
+  * @param  \App\Role $role
+  * @return Response
+  */
+  public function edit(Role $role)
+  {
+    return $role;
+  }
+
+  /**
   * Update the specified resource in storage.
   *
   * @param  \Illuminate\Http\Request  $request
