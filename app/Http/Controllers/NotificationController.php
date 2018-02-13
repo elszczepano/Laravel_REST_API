@@ -39,6 +39,7 @@ class NotificationController extends Controller
 
     return response()->json($notification, 201);
   }
+
   /**
   * Show the form for editing the specified resource.
   *
@@ -49,6 +50,7 @@ class NotificationController extends Controller
   {
     return $notification;
   }
+
   /**
   * Display the specified resource.
   *
