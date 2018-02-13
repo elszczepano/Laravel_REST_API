@@ -10,7 +10,7 @@ class User extends Authenticatable
   use Notifiable;
 
   protected $fillable = ['name', 'surname', 'avatar', 'email', 'birth_date', 'password'];
-  protected $hidden = ['id', 'password', 'api_token'];
+  protected $hidden = ['id', 'password'];
 
   public function generateToken()
   {
@@ -23,9 +23,11 @@ class User extends Authenticatable
   public function groups() {
     return $this->belongsToMany(Group::class, 'users_has_groups', 'user_id', 'group_id')->withTimestamps();
   }
+
   public function roles() {
     return $this->belongsToMany(Role::class, 'users_has_groups', 'user_id', 'role_id')->withTimestamps();
   }
+
   public function hasAnyRole($roles)
   {
     if (is_array($roles)) {
