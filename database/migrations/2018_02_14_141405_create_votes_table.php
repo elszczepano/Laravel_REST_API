@@ -28,7 +28,7 @@ class CreateVotesTable extends Migration
         Schema::table('votes', function (Blueprint $table) {
           $table->foreign('post_id')
           ->references('id')
-          ->on('post');
+          ->on('posts');
         });
     }
 
