@@ -19,21 +19,10 @@ class CreateUsersHasGroupsTable extends Migration
       $table->integer('group_id')->unsigned();
       $table->integer('role_id')->unsigned();
       $table->timestamps();
-    });
-    Schema::table('users_has_groups', function (Blueprint $table) {
-      $table->foreign('user_id')
-      ->references('id')
-      ->on('users');
-    });
-    Schema::table('users_has_groups', function (Blueprint $table) {
-      $table->foreign('group_id')
-      ->references('id')
-      ->on('groups');
-    });
-    Schema::table('users_has_groups', function (Blueprint $table) {
-      $table->foreign('role_id')
-      ->references('id')
-      ->on('roles');
+
+      $table->foreign('user_id')->references('id')->on('users');
+      $table->foreign('group_id')->references('id')->on('groups');
+      $table->foreign('role_id')->references('id')->on('roles');
     });
   }
 

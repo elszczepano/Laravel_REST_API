@@ -20,11 +20,8 @@ class CreateGroupsTable extends Migration
       $table->text('background_image')->nullable();
       $table->integer('icon_id')->unsigned();
       $table->timestamps();
-    });
-    Schema::table('groups', function (Blueprint $table) {
-      $table->foreign('icon_id')
-      ->references('id')
-      ->on('icons');
+
+      $table->foreign('icon_id')->references('id')->on('icons');
     });
   }
 

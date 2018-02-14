@@ -18,16 +18,9 @@ class CreateUsersHasNotificationsTable extends Migration
       $table->integer('user_id')->unsigned();
       $table->integer('notification_id')->unsigned();
       $table->timestamps();
-    });
-    Schema::table('users_has_notifications', function (Blueprint $table) {
-      $table->foreign('user_id')
-      ->references('id')
-      ->on('users');
-    });
-    Schema::table('users_has_notifications', function (Blueprint $table) {
-      $table->foreign('notification_id')
-      ->references('id')
-      ->on('notifications');
+
+      $table->foreign('user_id')->references('id')->on('users');
+      $table->foreign('notification_id')->references('id')->on('notifications');
     });
   }
 
