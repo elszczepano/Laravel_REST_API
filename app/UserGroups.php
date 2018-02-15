@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UsersHasNotifications extends Model
+class UserGroups extends Model
 {
     //
 }

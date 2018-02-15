@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         IconTableSeeder::class,
         RoleTableSeeder::class,
         GroupTableSeeder::class,
-        UsersHasGroupsSeeder::class,
+        UserGroupsSeeder::class,
         PostTableSeeder::class
       ]);
     }

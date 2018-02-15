@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\UsersHasGroups;
+use App\UserGroups;
 
-class UsersHasGroupsSeeder extends Seeder
+class UserGroupsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,13 +12,13 @@ class UsersHasGroupsSeeder extends Seeder
      */
     public function run()
     {
-      $pivot = new UsersHasGroups();
+      $pivot = new UserGroups();
       $pivot -> user_id = (1);
       $pivot -> group_id = (1);
       $pivot -> role_id = (1);
       $pivot -> save();
 
-      $pivot = new UsersHasGroups();
+      $pivot = new UserGroups();
       $pivot -> user_id = (2);
       $pivot -> group_id = (2);
       $pivot -> role_id = (3);

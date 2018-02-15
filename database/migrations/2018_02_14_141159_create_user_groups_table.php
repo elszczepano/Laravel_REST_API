@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersHasNotificationsTable extends Migration
+class CreateUserGroupsTable extends Migration
 {
   /**
   * Run the migrations.
@@ -13,14 +13,16 @@ class CreateUsersHasNotificationsTable extends Migration
   */
   public function up()
   {
-    Schema::create('users_has_notifications', function (Blueprint $table) {
+    Schema::create('user_groups', function (Blueprint $table) {
       $table->increments('id');
       $table->integer('user_id')->unsigned();
-      $table->integer('notification_id')->unsigned();
+      $table->integer('group_id')->unsigned();
+      $table->integer('role_id')->unsigned();
       $table->timestamps();
 
       $table->foreign('user_id')->references('id')->on('users');
-      $table->foreign('notification_id')->references('id')->on('notifications');
+      $table->foreign('group_id')->references('id')->on('groups');
+      $table->foreign('role_id')->references('id')->on('roles');
     });
   }
 
@@ -31,6 +33,6 @@ class CreateUsersHasNotificationsTable extends Migration
   */
   public function down()
   {
-    Schema::dropIfExists('users_has_notifications');
+    Schema::dropIfExists('user_groups');
   }
 }
