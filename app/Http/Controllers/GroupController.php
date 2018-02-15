@@ -4,85 +4,45 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Group;
+use App\User;
 
 class GroupController extends Controller
 {
-  /**
-  * Display a listing of the resource.
-  *
-  * @return \Illuminate\Http\Response
-  */
   public function index()
   {
-    return  $group = Group::all();
+    return $group = Group::all();
   }
 
-  /**
-  * Show the form for creating a new resource.
-  *
-  * @return \Illuminate\Http\Response
-  */
-  public function create()
-  {
-    //
+
+  public function myGroups(User $user) {
+    return $user->group()->get();
   }
 
-  /**
-  * Store a newly created resource in storage.
-  *
-  * @param  \Illuminate\Http\Request  $request
-  * @return \Illuminate\Http\Response
-  */
+
   public function store(Request $request)
   {
-    return Group::create($request->all());
-
+    $group = Group::create($request->all());
+    $group->user()->attach($request->get('user_id'));
+    $group->role()->attach($request->get('role_id'));
     return response()->json($group, 201);
   }
 
-  /**
-  * Display the specified resource.
-  *
-  * @param  \App\Group $group
-  * @return \Illuminate\Http\Response
-  */
+
   public function show(Group $group)
   {
-    return $group;
+    return response()->json($group);
   }
 
-  /**
-  * Show the form for editing the specified resource.
-  *
-  * @param  \App\Group $group
-  * @return Response
-  */
-  public function edit(Group $group)
-  {
-    return $group;
-  }
 
-  /**
-  * Update the specified resource in storage.
-  *
-  * @param  \Illuminate\Http\Request  $request
-  * @param  \App\Group $group
-  * @return \Illuminate\Http\Response
-  */
   public function update(Request $request, Group $group)
   {
     $group->update($request->all());
 
-    return response()->json($group, 200);
+    return response()->json($group);
   }
 
-  /**
-  * Remove the specified resource from storage.
-  *
-  * @param  \App\Group $group
-  * @return \Illuminate\Http\Response
-  */
-  public function delete(Group $group)
+
+  public function destroy(Group $group)
   {
     $group->delete();
 
