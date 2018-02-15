@@ -26,19 +26,19 @@ class User extends Authenticatable
   }
 
   public function group() {
-    return $this->belongsToMany(Group::class);
+    return $this->belongsToMany(Group::class, 'user_groups')->withTimestamps();
   }
 
   public function role() {
-    return $this->belongsToMany(Role::class);
+    return $this->belongsToMany(Role::class, 'user_groups')->withTimestamps();
   }
 
   public function notification() {
-    return $this->belongsToMany(Notification::class);
+    return $this->belongsToMany(Notification::class, 'user_notifications')->withTimestamps();
   }
 
   public function vote() {
-    return $this->belongsToMany(Vote::class);
+    return $this->belongsToMany(Vote::class, 'votes')->withTimestamps();
   }
 
   public function hasAnyRole($roles)

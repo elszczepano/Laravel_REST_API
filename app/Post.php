@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-    protected $fillable = ['content', 'rating'];
+    protected $fillable = ['content'];
     protected $hidden = ['id'];
 
     use SoftDeletes;
