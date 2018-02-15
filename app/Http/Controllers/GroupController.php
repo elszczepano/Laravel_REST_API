@@ -14,7 +14,7 @@ class GroupController extends Controller
   */
   public function index()
   {
-    $groups = Group::all();
+    $group = Group::all();
 
   }
 
@@ -62,7 +62,7 @@ class GroupController extends Controller
   {
     return $group;
   }
-  
+
   /**
   * Update the specified resource in storage.
   *
