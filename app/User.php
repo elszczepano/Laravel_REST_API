@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -12,6 +13,10 @@ class User extends Authenticatable
   protected $fillable = ['name', 'surname', 'avatar', 'email', 'birth_date', 'password'];
   protected $hidden = ['id', 'password'];
 
+  use SoftDeletes;
+
+  protected $dates = ['deleted_at'];
+
   public function generateToken()
   {
     $this->api_token = str_random(60);
@@ -20,12 +25,20 @@ class User extends Authenticatable
     return $this->api_token;
   }
 
-  public function groups() {
-    return $this->belongsToMany(Group::class, 'users_has_groups', 'user_id', 'group_id')->withTimestamps();
+  public function group() {
+    return $this->belongsToMany(Group::class);
   }
 
-  public function roles() {
-    return $this->belongsToMany(Role::class, 'users_has_groups', 'user_id', 'role_id')->withTimestamps();
+  public function role() {
+    return $this->belongsToMany(Role::class);
+  }
+
+  public function notification() {
+    return $this->belongsToMany(Notification::class);
+  }
+
+  public function vote() {
+    return $this->belongsToMany(Vote::class);
   }
 
   public function hasAnyRole($roles)
@@ -43,6 +56,7 @@ class User extends Authenticatable
     }
     return false;
   }
+
   public function hasRole($role)
   {
     if ($this->roles()->where('roles.name', $role)->first()) {

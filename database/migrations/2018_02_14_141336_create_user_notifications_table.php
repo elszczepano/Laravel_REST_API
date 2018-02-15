@@ -18,6 +18,7 @@ class CreateUserNotificationsTable extends Migration
       $table->integer('user_id')->unsigned();
       $table->integer('notification_id')->unsigned();
       $table->timestamps();
+      $table->softDeletes();
 
       $table->foreign('user_id')->references('id')->on('users');
       $table->foreign('notification_id')->references('id')->on('notifications');

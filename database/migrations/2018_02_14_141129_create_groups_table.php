@@ -20,6 +20,7 @@ class CreateGroupsTable extends Migration
       $table->text('background_image')->nullable();
       $table->integer('icon_id')->unsigned();
       $table->timestamps();
+      $table->softDeletes();
 
       $table->foreign('icon_id')->references('id')->on('icons');
     });
