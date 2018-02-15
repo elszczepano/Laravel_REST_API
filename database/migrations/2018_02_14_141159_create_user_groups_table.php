@@ -17,7 +17,7 @@ class CreateUserGroupsTable extends Migration
       $table->increments('id');
       $table->integer('user_id')->unsigned();
       $table->integer('group_id')->unsigned();
-      $table->integer('role_id')->unsigned();
+      $table->integer('role_id')->unsigned()->default(3);
       $table->timestamps();
       $table->softDeletes();
 
