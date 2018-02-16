@@ -12,5 +12,7 @@ Route::resources([
   'comment' => 'CommentController'
 ]);
 
-Route::get('group/my-groups/{user}', 'GroupController@myGroups');
-Route::get('posts/my-posts/{user}', 'PostController@myPosts');
+Route::get('notification/user/{user}', 'NotificationController@userNotifications');
+Route::get('group/user/{user}', 'GroupController@userGroups');
+Route::get('post/group/{group}', 'PostController@groupPosts');
+Route::get('posts/user/{user}', 'PostController@myPosts');

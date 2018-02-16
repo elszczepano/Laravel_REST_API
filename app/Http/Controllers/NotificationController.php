@@ -4,12 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Notification;
+use App\User;
 
 class NotificationController extends Controller
 {
   public function index()
   {
     return Notification::all();
+  }
+
+
+  public function userNotifications(User $user)
+  {
+    return $user->notification()->get();
   }
 
 

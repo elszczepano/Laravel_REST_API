@@ -14,7 +14,8 @@ class GroupController extends Controller
   }
 
 
-  public function myGroups(User $user) {
+  public function userGroups(User $user)
+  {
     return $user->group()->get();
   }
 
