@@ -20,6 +20,6 @@ class Group extends Model
 
 
     public function post() {
-      return $this->hasMany(Post::class, 'posts')->withTimestamps();
+      return $this->hasMany(Post::class);
     }
 }

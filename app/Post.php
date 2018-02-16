@@ -15,6 +15,6 @@ class Post extends Model
     protected $dates = ['deleted_at'];
 
     public function comments() {
-      return $this->hasMany(Comment::class, 'comments')->withTimestamps();
+      return $this->hasMany(Comment::class);
     }
 }
