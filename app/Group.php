@@ -17,7 +17,9 @@ class Group extends Model
     public function user() {
       return $this->belongsToMany(User::class, 'user_groups')->withTimestamps();
     }
-    public function role() {
-      return $this->belongsToMany(Role::class, 'user_groups')->withTimestamps();
+
+
+    public function post() {
+      return $this->hasMany(Post::class, 'posts')->withTimestamps();
     }
 }

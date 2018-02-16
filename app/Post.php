@@ -13,4 +13,8 @@ class Post extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
+
+    public function comments() {
+      return $this->hasMany(Comment::class, 'comments')->withTimestamps();
+    }
 }
