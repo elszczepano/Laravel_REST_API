@@ -4,12 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Comment;
+use App\Post;
 
 class CommentController extends Controller
 {
   public function index()
   {
     return Comment::all();
+  }
+
+
+  public function postComments(Post $post)
+  {
+    return $post->comment()->get();
   }
 
 
