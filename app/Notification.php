@@ -10,6 +10,6 @@ class Notification extends Model
     protected $hidden = ['id'];
 
     public function user() {
-      return $this->belongsToMany(User::class, 'user_notifications')->withTimestamps();
+      return $this->belongsTo(User::class, 'user_notifications');
     }
 }

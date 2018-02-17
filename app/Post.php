@@ -14,7 +14,11 @@ class Post extends Model
 
     protected $dates = ['deleted_at'];
 
-    public function comments() {
+    public function comment() {
       return $this->hasMany(Comment::class);
+    }
+
+    public function vote() {
+      return $this->hasMany(Vote::class);
     }
 }

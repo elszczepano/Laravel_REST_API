@@ -36,6 +36,11 @@ class User extends Authenticatable
   }
 
 
+  public function notification() {
+    return $this->hasMany(Notification::class, 'notifications');
+  }
+
+
   public function group() {
     return $this->belongsToMany(Group::class, 'user_groups')->withTimestamps();
   }
@@ -46,13 +51,8 @@ class User extends Authenticatable
   }
 
 
-  public function notification() {
-    return $this->belongsToMany(Notification::class, 'user_notifications')->withTimestamps();
-  }
-
-
   public function vote() {
-    return $this->belongsToMany(Vote::class, 'votes')->withTimestamps();
+    return $this->hasMany(Vote::class);
   }
 
 

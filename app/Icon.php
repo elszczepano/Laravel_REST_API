@@ -9,6 +9,6 @@ class Icon extends Model
     protected $fillable = ['name'];
 
     public function group() {
-      return $this->hasMany(Group::class);
+      return $this->belongsTo(Group::class);
     }
 }
