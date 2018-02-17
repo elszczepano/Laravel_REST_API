@@ -17,7 +17,10 @@ class DatabaseSeeder extends Seeder
         RoleTableSeeder::class,
         GroupTableSeeder::class,
         UserGroupsSeeder::class,
-        PostTableSeeder::class
+        PostTableSeeder::class,
+        CommentTableSeeder::class,
+        NotificationTableSeeder::class,
+        VoteTableSeeder::class
       ]);
     }
 }

@@ -12,16 +12,16 @@ class UserGroupsSeeder extends Seeder
      */
     public function run()
     {
-      $pivot = new UserGroups();
-      $pivot -> user_id = (1);
-      $pivot -> group_id = (1);
-      $pivot -> role_id = (1);
-      $pivot -> save();
+      $userGroups = new UserGroups();
+      $userGroups -> user_id = (1);
+      $userGroups -> group_id = (1);
+      $userGroups -> role_id = (1);
+      $userGroups -> save();
 
-      $pivot = new UserGroups();
-      $pivot -> user_id = (2);
-      $pivot -> group_id = (2);
-      $pivot -> role_id = (3);
-      $pivot -> save();
+      $userGroups = new UserGroups();
+      $userGroups -> user_id = (2);
+      $userGroups -> group_id = (2);
+      $userGroups -> role_id = (3);
+      $userGroups -> save();
     }
 }
