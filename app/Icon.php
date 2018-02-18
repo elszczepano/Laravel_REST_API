@@ -8,7 +8,8 @@ class Icon extends Model
 {
     protected $fillable = ['name'];
 
-    public function group() {
+    public function group()
+    {
       return $this->belongsTo(Group::class);
     }
 }

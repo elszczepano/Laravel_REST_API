@@ -8,7 +8,8 @@ class Role extends Model
 {
     protected $hidden = ['id'];
 
-    public function user() {
+    public function user()
+    {
       return $this->belongsToMany(User::class, 'user_groups')->withTimestamps();
     }
 }

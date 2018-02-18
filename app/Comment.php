@@ -7,11 +7,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Comment extends Model
 {
-    protected $fillable = ['content'];
-    protected $hidden = ['id'];
-
     use SoftDeletes;
 
+    protected $fillable = ['content'];
+    protected $hidden = ['id'];
     protected $dates = ['deleted_at'];
 
     public function post() {
