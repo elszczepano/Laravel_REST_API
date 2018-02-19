@@ -1,15 +1,18 @@
 <?php
 
-namespace App;
+namespace App\Entities;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Prettus\Repository\Contracts\Transformable;
+use Prettus\Repository\Traits\TransformableTrait;
 
-class User extends Authenticatable
+class User extends Authenticatable implements Transformable
 {
   use Notifiable;
   use SoftDeletes;
+  use TransformableTrait;
 
   protected $fillable = ['name', 'surname', 'avatar', 'email', 'birth_date', 'password'];
   protected $hidden = ['id', 'password'];
@@ -38,7 +41,7 @@ class User extends Authenticatable
 
   public function notification()
   {
-    return $this->hasMany(Notification::class, 'notifications');
+    return $this->hasMany(Notification::class);
   }
 
 
@@ -57,30 +60,5 @@ class User extends Authenticatable
   public function vote()
   {
     return $this->hasMany(Vote::class);
-  }
-
-
-  public function hasAnyRole($roles)
-  {
-    if (is_array($roles)) {
-      foreach ($roles as $role) {
-        if ($this->hasRole($role)) {
-          return true;
-        }
-      }
-    } else {
-      if ($this->hasRole($roles)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  public function hasRole($role)
-  {
-    if ($this->roles()->where('roles.name', $role)->first()) {
-      return true;
-    }
-    return false;
   }
 }
