@@ -11,14 +11,11 @@ class CommentRepositoryEloquent extends BaseRepository implements CommentReposit
 {
   public function createComment($params, $userId, $postId)
 	{
-		$comment = $this->create($params);
-		$comment
-			->user()
-			->attach($userId)
-      ->post()
-			->attach($postId);
-
-		return $comment;
+		$comment = new Comment();
+		$comment->fill($params);
+		$comment->user()->associate($userId);
+		$comment->post()->associate($postId);
+    $comment->save();
 	}
 
 	public function editComment($params, $id)

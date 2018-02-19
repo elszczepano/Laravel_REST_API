@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Entities\Comment;
 use App\Repositories\PostRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\CommentRepository;
@@ -27,13 +28,6 @@ class CommentController extends Controller
   {
     return $postRepository->comment()->get();
   }
-
-  public function myComments(Request $request, $userId, UserRepository $userRepository)
-	{
-    $postId = $request->get('post_id');
-
-		return $userRepository->myComments($postId, $userId);
-	}
 
   public function store(Request $request)
   {
