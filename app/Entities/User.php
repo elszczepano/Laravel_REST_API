@@ -16,49 +16,37 @@ class User extends Authenticatable implements Transformable
 
   protected $fillable = ['name', 'surname', 'avatar', 'email', 'birth_date', 'password'];
   protected $hidden = ['id', 'password'];
+
+  use SoftDeletes;
+
   protected $dates = ['deleted_at'];
 
-  public function generateToken()
-  {
-    $this->api_token = str_random(60);
-    $this->save();
 
-    return $this->api_token;
-  }
-
-
-  public function post()
-  {
+  public function post() {
     return $this->hasMany(Post::class);
   }
 
-
-  public function comments()
-  {
+  public function comments() {
     return $this->hasMany(Comment::class);
   }
-
 
   public function notification()
   {
     return $this->hasMany(Notification::class);
+
+  public function notification() {
+    return $this->hasMany(Notification::class, 'notifications');
   }
 
-
-  public function group()
-  {
+  public function group() {
     return $this->belongsToMany(Group::class, 'user_groups')->withTimestamps();
   }
 
-
-  public function role()
-  {
+  public function role() {
     return $this->belongsToMany(Role::class, 'user_groups')->withTimestamps();
   }
 
-
-  public function vote()
-  {
+  public function vote() {
     return $this->hasMany(Vote::class);
   }
 }

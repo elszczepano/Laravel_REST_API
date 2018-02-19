@@ -14,6 +14,9 @@ class Comment extends Model implements Transformable
 
     protected $fillable = ['content'];
     protected $hidden = ['id'];
+
+    use SoftDeletes;
+
     protected $dates = ['deleted_at'];
 
     public function post() {

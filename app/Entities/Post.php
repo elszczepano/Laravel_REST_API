@@ -15,15 +15,16 @@ class Post extends Model implements Transformable
 
     protected $fillable = ['content'];
     protected $hidden = ['id'];
+
+    use SoftDeletes;
+
     protected $dates = ['deleted_at'];
 
-    public function comment()
-    {
+    public function comment() {
       return $this->hasMany(Comment::class);
     }
 
-    public function vote()
-    {
+    public function vote() {
       return $this->hasMany(Vote::class);
     }
 }
