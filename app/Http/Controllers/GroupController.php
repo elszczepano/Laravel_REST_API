@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Group;
 use App\User;
+use App\Repositories\GroupRepository;
 
 class GroupController extends Controller
 {

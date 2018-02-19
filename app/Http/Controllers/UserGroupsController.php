@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\UserGroups;
+use App\Repositories\UserGroupsRepository;
 
 class UserGroupsController extends Controller
 {

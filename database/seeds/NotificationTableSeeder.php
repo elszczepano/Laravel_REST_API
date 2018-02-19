@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Notification;
+use App\Entities\Notification;
 
 class NotificationTableSeeder extends Seeder
 {

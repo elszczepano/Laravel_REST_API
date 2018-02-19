@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Vote;
 use App\Post;
 use App\User;
+use App\Repositories\VoteRepository;
 
 class VoteController extends Controller
 {

@@ -7,6 +7,7 @@ use App\Post;
 use App\Group;
 use App\User;
 use App\Comment;
+use App\Repositories\PostRepository;
 use Illuminate\Http\Request;
 
 class PostController extends Controller

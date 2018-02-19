@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\UserGroups;
+use App\Entities\UserGroups;
 
 class UserGroupsSeeder extends Seeder
 {

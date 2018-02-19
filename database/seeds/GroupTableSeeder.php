@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Group;
+use App\Entities\Group;
 
 class GroupTableSeeder extends Seeder
 {

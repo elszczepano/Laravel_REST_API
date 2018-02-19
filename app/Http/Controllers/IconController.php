@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Icon;
+use App\Repositories\IconRepository;
 
 class IconController extends Controller
 {

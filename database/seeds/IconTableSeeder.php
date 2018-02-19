@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Icon;
+use App\Entities\Icon;
 
 class IconTableSeeder extends Seeder
 {
