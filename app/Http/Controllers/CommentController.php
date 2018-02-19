@@ -39,7 +39,7 @@ class CommentController extends Controller
   {
     $comment = $this
       ->commentRepository
-      ->createComment($request->all(), $request->get('user_id'), $request->get('post_id'));
+      ->createComment($request->all(), $request->input('user_id'), $request->input('post_id'));
     return response()->json($comment, 201);
   }
 

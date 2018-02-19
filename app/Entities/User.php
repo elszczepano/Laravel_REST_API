@@ -16,9 +16,6 @@ class User extends Authenticatable implements Transformable
 
   protected $fillable = ['name', 'surname', 'avatar', 'email', 'birth_date', 'password'];
   protected $hidden = ['id', 'password'];
-
-  use SoftDeletes;
-
   protected $dates = ['deleted_at'];
 
 
@@ -33,9 +30,6 @@ class User extends Authenticatable implements Transformable
   public function notification()
   {
     return $this->hasMany(Notification::class);
-
-  public function notification() {
-    return $this->hasMany(Notification::class, 'notifications');
   }
 
   public function group() {
