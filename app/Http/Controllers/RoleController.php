@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Role;
+use App\Entities\Role;
 use App\Repositories\RoleRepository;
 
 class RoleController extends Controller

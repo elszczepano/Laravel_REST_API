@@ -37,9 +37,7 @@ class CommentController extends Controller
 
   public function store(Request $request)
   {
-    $comment = $this
-      ->commentRepository
-      ->createComment($request->all(), $request->input('user_id'), $request->input('post_id'));
+    $comment = $this->commentRepository->createComment($request->all(), $request->get('user_id'), $request->get('post_id'));
     return response()->json($comment, 201);
   }
 

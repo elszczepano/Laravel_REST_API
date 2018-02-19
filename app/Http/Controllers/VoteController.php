@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Vote;
-use App\Post;
-use App\User;
+use App\Entities\Vote;
+use App\Entities\Post;
+use App\Entities\User;
 use App\Repositories\VoteRepository;
 
 class VoteController extends Controller

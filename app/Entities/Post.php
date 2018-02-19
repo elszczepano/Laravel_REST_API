@@ -17,11 +17,13 @@ class Post extends Model implements Transformable
     protected $hidden = ['id'];
     protected $dates = ['deleted_at'];
 
-    public function comment() {
+    public function comment()
+    {
       return $this->hasMany(Comment::class);
     }
 
-    public function vote() {
+    public function vote()
+    {
       return $this->hasMany(Vote::class);
     }
 }

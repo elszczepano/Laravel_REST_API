@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
-use App\Group;
+use App\Entities\User;
+use App\Entities\Group;
 use App\Repositories\UserRepository;
 
 class UserController extends Controller

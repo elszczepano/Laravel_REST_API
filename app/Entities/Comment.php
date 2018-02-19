@@ -16,11 +16,13 @@ class Comment extends Model implements Transformable
     protected $hidden = ['id'];
     protected $dates = ['deleted_at'];
 
-    public function user() {
+    public function user()
+    {
       return $this->belongsTo(User::class);
     }
 
-    public function post() {
+    public function post()
+    {
       return $this->belongsTo(Post::class);
     }
 }

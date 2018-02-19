@@ -19,11 +19,13 @@ class User extends Authenticatable implements Transformable
   protected $dates = ['deleted_at'];
 
 
-  public function post() {
+  public function post()
+  {
     return $this->hasMany(Post::class);
   }
 
-  public function comments() {
+  public function comments()
+  {
     return $this->hasMany(Comment::class);
   }
 
@@ -32,15 +34,18 @@ class User extends Authenticatable implements Transformable
     return $this->hasMany(Notification::class);
   }
 
-  public function group() {
+  public function group()
+  {
     return $this->belongsToMany(Group::class, 'user_groups')->withTimestamps();
   }
 
-  public function role() {
+  public function role()
+  {
     return $this->belongsToMany(Role::class, 'user_groups')->withTimestamps();
   }
 
-  public function vote() {
+  public function vote()
+  {
     return $this->hasMany(Vote::class);
   }
 }

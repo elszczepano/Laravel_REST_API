@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostsRequest;
-use App\Post;
-use App\Group;
-use App\User;
-use App\Comment;
+use App\Entities\Post;
+use App\Entities\Group;
+use App\Entities\User;
+use App\Entities\Comment;
 use App\Repositories\PostRepository;
 use Illuminate\Http\Request;
 
