@@ -44,7 +44,7 @@ class CommentController extends Controller
 
   public function update(Request $request, $id)
   {
-    $comment = $this->commentRepository->update($request->all(), $id);
+    $comment = $this->commentRepository->editComment($request->all(), $id);
     $response = [
       'message' => 'Comment updated',
       'data' => $comment
