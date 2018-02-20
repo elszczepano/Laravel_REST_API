@@ -8,16 +8,23 @@ use App\Repositories\IconRepository;
 
 class IconController extends Controller
 {
+  protected $iconRepository;
+
+  public function __construct(IconRepository $iconRepository)
+  {
+    $this->iconRepository = $iconRepository;
+  }
+
+
   public function index()
   {
-    return Icon::all();
+    return $this->iconRepository->get();
   }
 
 
   public function store(Request $request)
   {
-    $icon = Icon::create($request->all());
-
+    $icon = $this->iconRepository->create($request->all());
     return response()->json($icon, 201);
   }
 
@@ -28,18 +35,24 @@ class IconController extends Controller
   }
 
 
-  public function update(Request $request, Icon $icon)
+  public function update(Request $request, $id)
   {
-    $icon->update($request->all());
+    $icon = $this->iconRepository->update($request->all(), $id);
+    $response = [
+      'message' => 'Icon updated',
+      'data' => $icon
+    ];
 
-    return response()->json($icon);
+    return response()->json($response);
   }
 
 
-  public function destroy(Icon $icon)
+  public function destroy($id)
   {
-    $icon->delete();
-
-    return response()->json(null, 204);
+    $deleted = $this->iconRepository->delete($id);
+    return response()->json([
+      'message' => 'Icon deleted.',
+      'deleted' => $deleted,
+    ]);
   }
 }
