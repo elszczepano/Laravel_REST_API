@@ -17,8 +17,9 @@ class CreateNotificationsTable extends Migration
       $table->increments('id');
       $table->string('content');
       $table->integer('user_id')->unsigned();
-      $table->boolean('read');
+      $table->boolean('read')->default(false);
       $table->timestamps();
+      $table->softDeletes();
 
       $table->foreign('user_id')->references('id')->on('users');
     });
