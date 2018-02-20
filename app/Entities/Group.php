@@ -25,4 +25,9 @@ class Group extends Model implements Transformable
     {
       return $this->hasMany(Post::class);
     }
+    
+    public function role()
+    {
+      return $this->hasMany(Role::class);
+    }
 }
