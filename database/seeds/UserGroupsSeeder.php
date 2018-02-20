@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Entities\UserGroups;
+use App\Entities\UserGroup;
 
 class UserGroupsSeeder extends Seeder
 {
@@ -12,16 +12,16 @@ class UserGroupsSeeder extends Seeder
      */
     public function run()
     {
-      $userGroups = new UserGroups();
-      $userGroups -> user_id = (1);
-      $userGroups -> group_id = (1);
-      $userGroups -> role_id = (1);
-      $userGroups -> save();
+      $userGroup = new UserGroup();
+      $userGroup -> user_id = (1);
+      $userGroup -> group_id = (1);
+      $userGroup -> role_id = (1);
+      $userGroup -> save();
 
-      $userGroups = new UserGroups();
-      $userGroups -> user_id = (2);
-      $userGroups -> group_id = (2);
-      $userGroups -> role_id = (3);
-      $userGroups -> save();
+      $userGroup = new UserGroup();
+      $userGroup -> user_id = (2);
+      $userGroup -> group_id = (2);
+      $userGroup -> role_id = (3);
+      $userGroup -> save();
     }
 }
