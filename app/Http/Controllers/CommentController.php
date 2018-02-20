@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Entities\Comment;
-use App\Repositories\PostRepository;
-use App\Repositories\UserRepository;
+use App\Entities\Post;
 use App\Repositories\CommentRepository;
 
 class CommentController extends Controller
@@ -24,9 +23,9 @@ class CommentController extends Controller
   }
 
 
-  public function postComments(PostRepository $postRepository)
+  public function postComments(Post $post)
   {
-    return $postRepository->comment()->get();
+    return $post->comment()->get();
   }
 
   public function store(Request $request)
