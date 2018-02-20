@@ -10,13 +10,15 @@ Route::resources([
   'role' => 'RoleController',
   'notification' => 'NotificationController',
   'comment' => 'CommentController',
+  'user-groups' => 'UserGroupsController',
   'votes' => 'VotesController'
 ]);
 
 Route::get('notification/user/{user}', 'NotificationController@userNotifications');
-Route::get('group/user/{user}', 'GroupController@userGroups');
+Route::get('user/group/{user}', 'UserController@userGroups');
+Route::get('group/user/{group}', 'GroupController@groupUsers');
 Route::get('post/group/{group}', 'PostController@groupPosts');
-Route::get('post/user/{user}', 'PostController@userPosts');
-Route::get('post/comment/{post}', 'CommentController@postComments');
-Route::get('post/vote/{post}', 'VoteController@postVotes');
-Route::get('user/vote/{user}', 'VoteController@userVotes');
+Route::get('user/post/{user}', 'UserController@userPosts');
+Route::get('post/comment/{post}', 'PostController@postComments');
+Route::get('post/vote/{post}', 'PostController@postVotes');
+Route::get('user/vote/{user}', 'UserController@userVotes');
