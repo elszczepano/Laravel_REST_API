@@ -37,7 +37,7 @@ class IconController extends Controller
 
   public function update(Request $request, $id)
   {
-    $icon = $this->iconRepository->update($request->all(), $id);
+    $icon = $this->iconRepository->editIcon($request->all(), $id);
     $response = [
       'message' => 'Icon updated',
       'data' => $icon

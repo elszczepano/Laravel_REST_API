@@ -8,31 +8,29 @@ use App\Repositories\RoleRepository;
 use App\Entities\Role;
 use App\Validators\RoleValidator;
 
-/**
- * Class RoleRepositoryEloquent.
- *
- * @package namespace App\Repositories;
- */
 class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
 {
-    /**
-     * Specify Model class name
-     *
-     * @return string
-     */
-    public function model()
-    {
-        return Role::class;
-    }
+  public function createRole($params)
+  {
+    $role = new Role();
+    $role->fill($params);
+    $role->save();
+  }
+  
+  public function editRole($params, $id)
+  {
+    $role = $this->update($params, $id);
+    return $role;
+  }
 
-    
+  public function model()
+  {
+    return Role::class;
+  }
 
-    /**
-     * Boot up the repository, pushing criteria
-     */
-    public function boot()
-    {
-        $this->pushCriteria(app(RequestCriteria::class));
-    }
-    
+  public function boot()
+  {
+    $this->pushCriteria(app(RequestCriteria::class));
+  }
+
 }

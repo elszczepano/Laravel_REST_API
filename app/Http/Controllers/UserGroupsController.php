@@ -3,43 +3,56 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Entities\UserGroups;
-use App\Repositories\UserGroupsRepository;
+use App\Entities\UserGroup;
+use App\Repositories\UserGroupRepository;
 
 class UserGroupsController extends Controller
 {
+  protected $userGroupRepository;
+
+  public function __construct(UserGroupRepository $userGroupRepository)
+  {
+    $this->userGroupRepository = $userGroupRepository;
+  }
+
+
   public function index()
   {
-    return UserGroups::all();
+    return $this->userGroupRepository->get();
   }
 
 
   public function store(Request $request)
   {
-    $userGroups = UserGroups::create($request->all());
-
-    return response()->json($userGroups, 201);
+    $userGroup = $this->userGroupRepository->createUserGroup($request->all());
+    return response()->json($userGroup, 201);
   }
 
 
-  public function show(UserGroups $userGroups)
+  public function show(UserGroup $userGroup)
   {
-    return response()->json($userGroups);
+    return response()->json($userGroup);
   }
 
 
-  public function update(Request $request, UserGroups $userGroups)
+  public function update(Request $request, $id)
   {
-    $userGroups->update($request->all());
+    $userGroup = $this->userGroupRepository->editUserGroup($request->all(), $id);
+    $response = [
+      'message' => 'Updated',
+      'data' => $userGroup
+    ];
 
-    return response()->json($userGroups);
+    return response()->json($response);
   }
 
 
-  public function destroy(UserGroups $userGroups)
+  public function destroy($id)
   {
-    $userGroups->delete();
-
-    return response()->json(null, 204);
+    $deleted = $this->userGroupRepository->delete($id);
+    return response()->json([
+      'message' => 'User removed from group',
+      'deleted' => $deleted,
+    ]);
   }
 }

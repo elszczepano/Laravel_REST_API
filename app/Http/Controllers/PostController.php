@@ -2,38 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PostsRequest;
 use App\Entities\Post;
 use App\Entities\Group;
-use App\Entities\User;
-use App\Entities\Comment;
 use App\Repositories\PostRepository;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+  protected $postRepository;
+
+  public function __construct(PostRepository $postRepository)
+  {
+    $this->postRepository = $postRepository;
+  }
+
+
   public function index()
   {
-    return Post::all();
+    return $this->postRepository->get();
   }
 
 
-  public function userPosts(User $user)
+  public function postVotes(Post $post)
   {
-    return $user->post()->get();
+    return $post->vote()->get();
   }
 
 
-  public function groupPosts(Group $group)
+  public function postComments(Post $post)
   {
-    return $group->post()->get();
+    return $post->comment()->get();
   }
 
 
   public function store(Request $request)
   {
-    $post = Post::create($request->all());
-
+    $post = $this->postRepository->createPost($request->all(), $request->get('user_id'), $request->get('group_id'));
     return response()->json($post, 201);
   }
 
@@ -44,18 +48,24 @@ class PostController extends Controller
   }
 
 
-  public function update(Request $request, Post $post)
+  public function update(Request $request, $id)
   {
-    $post->update($request->all());
+    $post = $this->postRepository->editPost($request->all(), $id);
+    $response = [
+      'message' => 'Post updated',
+      'data' => $post
+    ];
 
-    return response()->json($post);
+    return response()->json($response);
   }
 
 
-  public function destroy(Post $post)
+  public function destroy($id)
   {
-    $post->delete();
-
-    return response()->json(null, 204);
+    $deleted = $this->postRepository->delete($id);
+    return response()->json([
+      'message' => 'Post deleted.',
+      'deleted' => $deleted,
+    ]);
   }
 }

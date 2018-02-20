@@ -8,16 +8,23 @@ use App\Repositories\RoleRepository;
 
 class RoleController extends Controller
 {
+  protected $roleRepository;
+
+  public function __construct(RoleRepository $roleRepository)
+  {
+    $this->roleRepository = $roleRepository;
+  }
+
+
   public function index()
   {
-    return Role::all();
+    return $this->roleRepository->get();
   }
 
 
   public function store(Request $request)
   {
-    $role = Role::create($request->all());
-
+    $role = $this->roleRepository->createRole($request->all());
     return response()->json($role, 201);
   }
 
@@ -28,18 +35,24 @@ class RoleController extends Controller
   }
 
 
-  public function update(Request $request, Role $role)
+  public function update(Request $request, $id)
   {
-    $role->update($request->all());
+    $role = $this->roleRepository->editRole($request->all(), $id);
+    $response = [
+      'message' => 'Role updated',
+      'data' => $role
+    ];
 
-    return response()->json($role);
+    return response()->json($response);
   }
 
 
-  public function destroy(Role $role)
+  public function destroy($id)
   {
-    $role->delete();
-
-    return response()->json(null, 204);
+    $deleted = $this->roleRepository->delete($id);
+    return response()->json([
+      'message' => 'Role deleted.',
+      'deleted' => $deleted,
+    ]);
   }
 }

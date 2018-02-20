@@ -6,33 +6,31 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\NotificationRepository;
 use App\Entities\Notification;
-use App\Validators\NotificationValidator;
 
-/**
- * Class NotificationRepositoryEloquent.
- *
- * @package namespace App\Repositories;
- */
 class NotificationRepositoryEloquent extends BaseRepository implements NotificationRepository
 {
-    /**
-     * Specify Model class name
-     *
-     * @return string
-     */
-    public function model()
-    {
-        return Notification::class;
-    }
+  public function createNotification($params, $userId)
+  {
+    $notification = new Notification();
+    $notification->fill($params);
+    $notification->user()->associate($userId);
+    $notification->save();
+  }
 
-    
+  public function editNotification($params, $id)
+  {
+    $notification = $this->update($params, $id);
+    return $notification;
+  }
 
-    /**
-     * Boot up the repository, pushing criteria
-     */
-    public function boot()
-    {
-        $this->pushCriteria(app(RequestCriteria::class));
-    }
-    
+  public function model()
+  {
+    return Notification::class;
+  }
+
+  public function boot()
+  {
+    $this->pushCriteria(app(RequestCriteria::class));
+  }
+
 }

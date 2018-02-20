@@ -3,15 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Notification;
+use App\Entities\Notification;
 use App\Entities\User;
 use App\Repositories\NotificationRepository;
 
 class NotificationController extends Controller
 {
+  protected $notificationRepository;
+
+  public function __construct(NotificationRepository $notificationRepository)
+  {
+    $this->notificationRepository = $notificationRepository;
+  }
+
+
   public function index()
   {
-    return Notification::all();
+    return $this->notificationRepository->get();
   }
 
 
@@ -23,8 +31,7 @@ class NotificationController extends Controller
 
   public function store(Request $request)
   {
-    $notification = Notification::create($request->all());
-
+    $notification = $this->notificationRepository->createNotification($request->all(), $request->get('user_id'));
     return response()->json($notification, 201);
   }
 
@@ -35,18 +42,24 @@ class NotificationController extends Controller
   }
 
 
-  public function update(Request $request, Notification $notification)
+  public function update(Request $request, $id)
   {
-    $notification->update($request->all());
+    $notification = $this->notificationRepository->editNotification($request->all(), $id);
+    $response = [
+      'message' => 'Notification updated',
+      'data' => $notification
+    ];
 
-    return response()->json($notification);
+    return response()->json($response);
   }
 
 
-  public function destroy(Notification $notification)
+  public function destroy($id)
   {
-    $notification->delete();
-
-    return response()->json(null, 204);
+    $deleted = $this->notificationRepository->delete($id);
+    return response()->json([
+      'message' => 'Notification deleted.',
+      'deleted' => $deleted,
+    ]);
   }
 }

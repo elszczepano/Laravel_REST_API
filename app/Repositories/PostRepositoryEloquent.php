@@ -6,33 +6,32 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\PostRepository;
 use App\Entities\Post;
-use App\Validators\PostValidator;
 
-/**
- * Class PostRepositoryEloquent.
- *
- * @package namespace App\Repositories;
- */
 class PostRepositoryEloquent extends BaseRepository implements PostRepository
 {
-    /**
-     * Specify Model class name
-     *
-     * @return string
-     */
-    public function model()
-    {
-        return Post::class;
-    }
+  public function createPost($params, $userId, $groupId)
+  {
+    $post = new Post();
+    $post->fill($params);
+    $post->user()->associate($userId);
+    $post->group()->associate($groupId);
+    $post->save();
+  }
 
-    
+  public function editPost($params, $id)
+  {
+    $post = $this->update($params, $id);
+    return $post;
+  }
 
-    /**
-     * Boot up the repository, pushing criteria
-     */
-    public function boot()
-    {
-        $this->pushCriteria(app(RequestCriteria::class));
-    }
-    
+  public function model()
+  {
+    return Post::class;
+  }
+
+  public function boot()
+  {
+    $this->pushCriteria(app(RequestCriteria::class));
+  }
+
 }

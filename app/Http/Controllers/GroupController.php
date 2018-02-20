@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Entities\Group;
-use App\Entities\User;
 use App\Repositories\GroupRepository;
 
 class GroupController extends Controller
@@ -22,9 +21,15 @@ class GroupController extends Controller
   }
 
 
-  public function userGroups(User $user)
+  public function groupUsers(Group $group)
   {
-    return $user->group()->get();
+    return $group->user()->get();
+  }
+
+
+  public function groupPosts(Group $group)
+  {
+    return $group->post()->get();
   }
 
 

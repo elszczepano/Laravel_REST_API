@@ -10,6 +10,12 @@ use App\Validators\IconValidator;
 
 class IconRepositoryEloquent extends BaseRepository implements IconRepository
 {
+  	public function editIcon($params, $id)
+  	{
+  		$icon = $this->update($params, $id);
+  		return $icon;
+  	}
+
     public function model()
     {
         return Icon::class;

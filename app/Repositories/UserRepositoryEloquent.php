@@ -8,23 +8,26 @@ use App\Repositories\UserRepository;
 use App\Entities\User;
 use App\Validators\UserValidator;
 
-/**
-* Class UserRepositoryEloquent.
-*
-* @package namespace App\Repositories;
-*/
 class UserRepositoryEloquent extends BaseRepository implements UserRepository
 {
+  public function createUser($params)
+  {
+    $user = new User();
+    $user->fill($params);
+    $user->save();
+  }
+
+  public function editUser($params, $id)
+  {
+    $user = $this->update($params, $id);
+    return $user;
+  }
+
   public function model()
   {
     return User::class;
   }
 
-
-
-  /**
-  * Boot up the repository, pushing criteria
-  */
   public function boot()
   {
     $this->pushCriteria(app(RequestCriteria::class));

@@ -6,33 +6,32 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\VoteRepository;
 use App\Entities\Vote;
-use App\Validators\VoteValidator;
 
-/**
- * Class VoteRepositoryEloquent.
- *
- * @package namespace App\Repositories;
- */
 class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
 {
-    /**
-     * Specify Model class name
-     *
-     * @return string
-     */
-    public function model()
-    {
-        return Vote::class;
-    }
+  public function createVote($params, $userId, $postId)
+  {
+    $vote = new Vote();
+    $vote ->fill($params);
+    $vote->user()->associate($userId);
+		$vote->post()->associate($postId);
+    $vote ->save();
+  }
 
-    
+  public function editVote($params, $id)
+  {
+    $vote  = $this->update($params, $id);
+    return $vote ;
+  }
 
-    /**
-     * Boot up the repository, pushing criteria
-     */
-    public function boot()
-    {
-        $this->pushCriteria(app(RequestCriteria::class));
-    }
-    
+  public function model()
+  {
+    return Vote::class;
+  }
+
+  public function boot()
+  {
+    $this->pushCriteria(app(RequestCriteria::class));
+  }
+
 }
