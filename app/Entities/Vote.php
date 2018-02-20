@@ -14,4 +14,14 @@ class Vote extends Model implements Transformable
 
   protected $fillable = ['voted'];
   protected $hidden = ['id'];
+
+  public function user()
+  {
+    return $this->belongsTo(User::class);
+  }
+
+  public function post()
+  {
+    return $this->belongsTo(Post::class);
+  }
 }
