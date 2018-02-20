@@ -9,9 +9,16 @@ use App\Repositories\GroupRepository;
 
 class GroupController extends Controller
 {
-  public function index()
+  protected $groupRepository;
+
+  public function __construct(GroupRepository $groupRepository)
   {
-    return $group = Group::all();
+    $this->groupRepository = $groupRepository;
+  }
+
+  public function index(Request $request)
+  {
+    return $this->groupRepository->get();
   }
 
 
@@ -23,9 +30,7 @@ class GroupController extends Controller
 
   public function store(Request $request)
   {
-    $group = Group::create($request->all());
-    $group->user()->attach($request->get('user_id'));
-    $group->role()->attach($request->get('role_id'));
+    $group = $this->groupRepository->create($request->all());
     return response()->json($group, 201);
   }
 
@@ -36,18 +41,24 @@ class GroupController extends Controller
   }
 
 
-  public function update(Request $request, Group $group)
+  public function update(Request $request, $id)
   {
-    $group->update($request->all());
+    $group = $this->groupRepository->editGroup($request->all(), $id);
+    $response = [
+      'message' => 'Group updated',
+      'data' => $group
+    ];
 
-    return response()->json($group);
+    return response()->json($response);
   }
 
 
-  public function destroy(Group $group)
+  public function destroy($id)
   {
-    $group->delete();
-
-    return response()->json(null, 204);
+    $deleted = $this->groupRepository->delete($id);
+    return response()->json([
+      'message' => 'Group deleted.',
+      'deleted' => $deleted,
+    ]);
   }
 }
