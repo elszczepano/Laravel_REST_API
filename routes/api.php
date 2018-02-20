@@ -11,7 +11,7 @@ Route::resources([
   'notification' => 'NotificationController',
   'comment' => 'CommentController',
   'user-groups' => 'UserGroupsController',
-  'votes' => 'VotesController'
+  'vote' => 'VoteController'
 ]);
 
 Route::get('notification/user/{user}', 'NotificationController@userNotifications');
