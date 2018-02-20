@@ -16,7 +16,7 @@ class CommentController extends Controller
   }
 
 
-  public function index(Request $request)
+  public function index()
   {
     return $this->commentRepository->get();
   }

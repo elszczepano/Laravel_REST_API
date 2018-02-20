@@ -15,7 +15,7 @@ class GroupController extends Controller
     $this->groupRepository = $groupRepository;
   }
 
-  public function index(Request $request)
+  public function index()
   {
     return $this->groupRepository->get();
   }

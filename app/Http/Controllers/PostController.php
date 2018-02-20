@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Entities\Post;
-use App\Entities\Group;
 use App\Repositories\PostRepository;
 use Illuminate\Http\Request;
 
