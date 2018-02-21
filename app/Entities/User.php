@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements Transformable
+class User extends Authenticatable implements Transformable, JWTSubject
 {
   use Notifiable;
   use SoftDeletes;
@@ -47,5 +48,17 @@ class User extends Authenticatable implements Transformable
   public function vote()
   {
     return $this->hasMany(Vote::class);
+  }
+
+  public function getJWTIdentifier()
+  {
+    return $this->getKey();
+  }
+
+  public function getJWTCustomClaims()
+  {
+    return [
+      'email' => $this->email
+    ];
   }
 }

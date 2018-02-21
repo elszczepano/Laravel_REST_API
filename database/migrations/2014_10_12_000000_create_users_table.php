@@ -21,7 +21,6 @@ class CreateUsersTable extends Migration
       $table->string('email')->unique();
       $table->date('birth_date')->nullable();
       $table->string('password');
-      $table->string('api_token', 60)->unique()->nullable();
       $table->timestamps();
       $table->softDeletes();
     });
