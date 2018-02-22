@@ -12,7 +12,7 @@ class Comment extends Model implements Transformable
     use SoftDeletes;
     use TransformableTrait;
 
-    protected $fillable = ['content'];
+    protected $fillable = ['content', 'user_id', 'post_id'];
     protected $hidden = ['id'];
     protected $dates = ['deleted_at'];
 

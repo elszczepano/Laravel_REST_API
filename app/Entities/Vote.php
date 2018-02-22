@@ -12,7 +12,7 @@ class Vote extends Model implements Transformable
   use SoftDeletes;
   use TransformableTrait;
 
-  protected $fillable = ['voted'];
+  protected $fillable = ['user_id', 'post_id', 'voted'];
   protected $hidden = ['id'];
 
   public function user()

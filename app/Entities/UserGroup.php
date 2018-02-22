@@ -12,6 +12,6 @@ class UserGroup extends Model implements Transformable
   use SoftDeletes;
   use TransformableTrait;
 
-  protected $fillable = ['user_id','group_id','role_id'];
+  protected $fillable = ['user_id', 'group_id', 'role_id'];
   protected $dates = ['deleted_at'];
 }

@@ -12,7 +12,7 @@ class Notification extends Model implements Transformable
     use SoftDeletes;
     use TransformableTrait;
 
-    protected $fillable = ['content'];
+    protected $fillable = ['content', 'user_id', 'read'];
     protected $hidden = ['id'];
     protected $dates = ['deleted_at'];
 
