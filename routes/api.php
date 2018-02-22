@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 Route::post('login', 'AuthController@login');
 
 Route::group([
-  'middleware' => 'auth.api'
+  //'middleware' => 'auth.api'
 ], function() {
 
   Route::post('logout', 'AuthController@logout');
@@ -13,22 +13,23 @@ Route::group([
   Route::post('me', 'AuthController@me');
 
   Route::resources([
-    'user' => 'UserController',
-    'group' => 'GroupController',
-    'post' => 'PostController',
-    'icon' => 'IconController',
-    'role' => 'RoleController',
-    'notification' => 'NotificationController',
-    'comment' => 'CommentController',
+    'users' => 'UserController',
+    'groups' => 'GroupController',
+    'posts' => 'PostController',
+    'icons' => 'IconController',
+    'roles' => 'RoleController',
+    'notifications' => 'NotificationController',
+    'comments' => 'CommentController',
     'user-groups' => 'UserGroupsController',
-    'vote' => 'VoteController'
+    'votes' => 'VoteController'
   ]);
+  
   Route::get('notification/user/{user}', 'NotificationController@userNotifications');
-  Route::get('user/group/{user}', 'UserController@userGroups');
-  Route::get('group/user/{group}', 'GroupController@groupUsers');
-  Route::get('post/group/{group}', 'PostController@groupPosts');
-  Route::get('user/post/{user}', 'UserController@userPosts');
-  Route::get('post/comment/{post}', 'PostController@postComments');
-  Route::get('post/vote/{post}', 'PostController@postVotes');
-  Route::get('user/vote/{user}', 'UserController@userVotes');
+  Route::get('user/groups/{user}', 'UserController@userGroups');
+  Route::get('group/users/{group}', 'GroupController@groupUsers');
+  Route::get('group/posts/{group}', 'PostController@groupPosts');
+  Route::get('user/posts/{user}', 'UserController@userPosts');
+  Route::get('post/comments/{post}', 'PostController@postComments');
+  Route::get('post/votes/{post}', 'PostController@postVotes');
+  Route::get('user/votes/{user}', 'UserController@userVotes');
 });
