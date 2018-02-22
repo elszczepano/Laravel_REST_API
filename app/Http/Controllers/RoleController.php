@@ -5,14 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Entities\Role;
 use App\Repositories\RoleRepository;
+use App\Validators\RoleValidator;
+use Prettus\Validator\Contracts\ValidatorInterface;
+use Prettus\Validator\Exceptions\ValidatorException;
 
 class RoleController extends Controller
 {
   protected $roleRepository;
+  protected $validator;
 
-  public function __construct(RoleRepository $roleRepository)
+  public function __construct(RoleRepository $roleRepository, RoleValidator $validator)
   {
     $this->roleRepository = $roleRepository;
+    $this->validator = $validator;
   }
 
 
@@ -24,8 +29,21 @@ class RoleController extends Controller
 
   public function store(Request $request)
   {
-    $role = $this->roleRepository->createRole($request->all());
-    return response()->json($role, 201);
+    try {
+      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+
+      $role = $this->roleRepository->createRole($request->all());
+      $response = [
+        'message' => 'Role created'
+      ];
+      return response()->json($response, 201);
+
+    } catch (ValidatorException $e) {
+      return response()->json([
+        'error'   => true,
+        'message' => $e->getMessageBag()
+      ]);
+    }
   }
 
 
@@ -37,13 +55,23 @@ class RoleController extends Controller
 
   public function update(Request $request, $id)
   {
-    $role = $this->roleRepository->editRole($request->all(), $id);
-    $response = [
-      'message' => 'Role updated',
-      'data' => $role
-    ];
+    try {
+      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-    return response()->json($response);
+      $role = $this->roleRepository->editRole($request->all(), $id);
+      $response = [
+        'message' => 'Role updated',
+        'data' => $role
+      ];
+
+      return response()->json($response);
+
+    } catch (ValidatorException $e) {
+      return response()->json([
+        'error'   => true,
+        'message' => $e->getMessageBag()
+      ]);
+    }
   }
 
 
@@ -51,7 +79,7 @@ class RoleController extends Controller
   {
     $deleted = $this->roleRepository->delete($id);
     return response()->json([
-      'message' => 'Role deleted.',
+      'message' => 'Role deleted',
       'deleted' => $deleted,
     ]);
   }

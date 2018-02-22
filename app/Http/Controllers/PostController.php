@@ -5,14 +5,19 @@ namespace App\Http\Controllers;
 use App\Entities\Post;
 use App\Repositories\PostRepository;
 use Illuminate\Http\Request;
+use App\Validators\PostValidator;
+use Prettus\Validator\Contracts\ValidatorInterface;
+use Prettus\Validator\Exceptions\ValidatorException;
 
 class PostController extends Controller
 {
   protected $postRepository;
+  protected $validator;
 
-  public function __construct(PostRepository $postRepository)
+  public function __construct(PostRepository $postRepository, PostValidator $validator)
   {
     $this->postRepository = $postRepository;
+    $this->validator = $validator;
   }
 
 
@@ -36,8 +41,21 @@ class PostController extends Controller
 
   public function store(Request $request)
   {
-    $post = $this->postRepository->createPost($request->all(), $request->get('user_id'), $request->get('group_id'));
-    return response()->json($post, 201);
+    try {
+      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+
+      $post = $this->postRepository->createPost($request->all(), $request->get('user_id'), $request->get('group_id'));
+      $response = [
+        'message' => 'Post created'
+      ];
+      return response()->json($response, 201);
+
+    } catch (ValidatorException $e) {
+      return response()->json([
+        'error'   => true,
+        'message' => $e->getMessageBag()
+      ]);
+    }
   }
 
 
@@ -49,13 +67,25 @@ class PostController extends Controller
 
   public function update(Request $request, $id)
   {
-    $post = $this->postRepository->editPost($request->all(), $id);
-    $response = [
-      'message' => 'Post updated',
-      'data' => $post
-    ];
+    try {
+      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-    return response()->json($response);
+      $post = $this->postRepository->editPost($request->all(), $id);
+      $response = [
+        'message' => 'Post updated',
+        'data' => $post
+      ];
+
+      return response()->json($response);
+
+    } catch (ValidatorException $e) {
+      return response()->json([
+        'error'   => true,
+        'message' => $e->getMessageBag()
+      ]);
+    }
+
+
   }
 
 
@@ -63,7 +93,7 @@ class PostController extends Controller
   {
     $deleted = $this->postRepository->delete($id);
     return response()->json([
-      'message' => 'Post deleted.',
+      'message' => 'Post deleted',
       'deleted' => $deleted,
     ]);
   }

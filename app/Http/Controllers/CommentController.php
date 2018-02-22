@@ -5,14 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Entities\Comment;
 use App\Repositories\CommentRepository;
+use App\Validators\CommentValidator;
+use Prettus\Validator\Contracts\ValidatorInterface;
+use Prettus\Validator\Exceptions\ValidatorException;
 
 class CommentController extends Controller
 {
   protected $commentRepository;
+  protected $validator;
 
-  public function __construct(CommentRepository $commentRepository)
+  public function __construct(CommentRepository $commentRepository, CommentValidator $validator)
   {
     $this->commentRepository = $commentRepository;
+    $this->validator = $validator;
   }
 
 
@@ -24,8 +29,21 @@ class CommentController extends Controller
 
   public function store(Request $request)
   {
-    $comment = $this->commentRepository->createComment($request->all(), $request->get('user_id'), $request->get('post_id'));
-    return response()->json($comment, 201);
+    try {
+      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+
+      $comment = $this->commentRepository->createComment($request->all(), $request->get('user_id'), $request->get('post_id'));
+      $response = [
+        'message' => 'Comment created'
+      ];
+      return response()->json($response, 201);
+
+    } catch (ValidatorException $e) {
+      return response()->json([
+        'error'   => true,
+        'message' => $e->getMessageBag()
+      ]);
+    }
   }
 
 
@@ -37,13 +55,22 @@ class CommentController extends Controller
 
   public function update(Request $request, $id)
   {
-    $comment = $this->commentRepository->editComment($request->all(), $id);
-    $response = [
-      'message' => 'Comment updated',
-      'data' => $comment
-    ];
+    try {
+      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-    return response()->json($response);
+      $comment = $this->commentRepository->editComment($request->all(), $id);
+      $response = [
+        'message' => 'Comment updated',
+        'data' => $comment
+      ];
+      return response()->json($response);
+
+    } catch (ValidatorException $e) {
+      return response()->json([
+        'error'   => true,
+        'message' => $e->getMessageBag()
+      ]);
+    }
   }
 
 
@@ -51,7 +78,7 @@ class CommentController extends Controller
   {
     $deleted = $this->commentRepository->delete($id);
     return response()->json([
-      'message' => 'Comment deleted.',
+      'message' => 'Comment deleted',
       'deleted' => $deleted,
     ]);
   }

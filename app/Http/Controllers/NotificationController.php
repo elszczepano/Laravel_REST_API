@@ -6,14 +6,19 @@ use Illuminate\Http\Request;
 use App\Entities\Notification;
 use App\Entities\User;
 use App\Repositories\NotificationRepository;
+use App\Validators\NotificationValidator;
+use Prettus\Validator\Contracts\ValidatorInterface;
+use Prettus\Validator\Exceptions\ValidatorException;
 
 class NotificationController extends Controller
 {
   protected $notificationRepository;
+  protected $validator;
 
-  public function __construct(NotificationRepository $notificationRepository)
+  public function __construct(NotificationRepository $notificationRepository, NotificationValidator $validator)
   {
     $this->notificationRepository = $notificationRepository;
+    $this->validator = $validator;
   }
 
 
@@ -31,8 +36,21 @@ class NotificationController extends Controller
 
   public function store(Request $request)
   {
-    $notification = $this->notificationRepository->createNotification($request->all(), $request->get('user_id'));
-    return response()->json($notification, 201);
+    try {
+      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+
+      $notification = $this->notificationRepository->createNotification($request->all(), $request->get('user_id'));
+      $response = [
+        'message' => 'Notification created'
+      ];
+      return response()->json($response, 201);
+
+    } catch (ValidatorException $e) {
+      return response()->json([
+        'error'   => true,
+        'message' => $e->getMessageBag()
+      ]);
+    }
   }
 
 
@@ -44,13 +62,23 @@ class NotificationController extends Controller
 
   public function update(Request $request, $id)
   {
-    $notification = $this->notificationRepository->editNotification($request->all(), $id);
-    $response = [
-      'message' => 'Notification updated',
-      'data' => $notification
-    ];
+    try {
+      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-    return response()->json($response);
+      $notification = $this->notificationRepository->editNotification($request->all(), $id);
+      $response = [
+        'message' => 'Notification updated',
+        'data' => $notification
+      ];
+
+      return response()->json($response);
+
+    } catch (ValidatorException $e) {
+      return response()->json([
+        'error'   => true,
+        'message' => $e->getMessageBag()
+      ]);
+    }
   }
 
 
@@ -58,7 +86,7 @@ class NotificationController extends Controller
   {
     $deleted = $this->notificationRepository->delete($id);
     return response()->json([
-      'message' => 'Notification deleted.',
+      'message' => 'Notification deleted',
       'deleted' => $deleted,
     ]);
   }

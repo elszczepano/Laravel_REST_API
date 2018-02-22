@@ -5,14 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Entities\Icon;
 use App\Repositories\IconRepository;
+use App\Validators\IconValidator;
+use Prettus\Validator\Contracts\ValidatorInterface;
+use Prettus\Validator\Exceptions\ValidatorException;
 
 class IconController extends Controller
 {
   protected $iconRepository;
+  protected $validator;
 
-  public function __construct(IconRepository $iconRepository)
+  public function __construct(IconRepository $iconRepository, IconValidator $validator)
   {
     $this->iconRepository = $iconRepository;
+    $this->validator = $validator;
   }
 
 
@@ -24,8 +29,21 @@ class IconController extends Controller
 
   public function store(Request $request)
   {
-    $icon = $this->iconRepository->create($request->all());
-    return response()->json($icon, 201);
+    try {
+      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+
+      $icon = $this->iconRepository->create($request->all());
+      $response = [
+        'message' => 'Icon created'
+      ];
+      return response()->json($response, 201);
+
+    } catch (ValidatorException $e) {
+      return response()->json([
+        'error'   => true,
+        'message' => $e->getMessageBag()
+      ]);
+    }
   }
 
 
@@ -37,13 +55,23 @@ class IconController extends Controller
 
   public function update(Request $request, $id)
   {
-    $icon = $this->iconRepository->editIcon($request->all(), $id);
-    $response = [
-      'message' => 'Icon updated',
-      'data' => $icon
-    ];
+    try {
+      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-    return response()->json($response);
+      $icon = $this->iconRepository->editIcon($request->all(), $id);
+      $response = [
+        'message' => 'Icon updated',
+        'data' => $icon
+      ];
+
+      return response()->json($response);
+
+    } catch (ValidatorException $e) {
+      return response()->json([
+        'error'   => true,
+        'message' => $e->getMessageBag()
+      ]);
+    }
   }
 
 
@@ -51,7 +79,7 @@ class IconController extends Controller
   {
     $deleted = $this->iconRepository->delete($id);
     return response()->json([
-      'message' => 'Icon deleted.',
+      'message' => 'Icon deleted',
       'deleted' => $deleted,
     ]);
   }

@@ -5,14 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Entities\Vote;
 use App\Repositories\VoteRepository;
+use App\Validators\VoteValidator;
+use Prettus\Validator\Contracts\ValidatorInterface;
+use Prettus\Validator\Exceptions\ValidatorException;
 
 class VoteController extends Controller
 {
   protected $voteRepository;
+  protected $validator;
 
-  public function __construct(VoteRepository $voteRepository)
+  public function __construct(VoteRepository $voteRepository, VoteValidator $validator)
   {
     $this->voteRepository = $voteRepository;
+    $this->validator = $validator;
   }
 
 
@@ -24,8 +29,21 @@ class VoteController extends Controller
 
   public function store(Request $request)
   {
-    $vote = $this->voteRepository->createVote($request->all(), $request->get('user_id'), $request->get('post_id'));
-    return response()->json($vote, 201);
+    try {
+      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+
+      $vote = $this->voteRepository->createVote($request->all(), $request->get('user_id'), $request->get('post_id'));
+      $response = [
+        'message' => 'Vote created'
+      ];
+      return response()->json($response, 201);
+
+    } catch (ValidatorException $e) {
+      return response()->json([
+        'error'   => true,
+        'message' => $e->getMessageBag()
+      ]);
+    }
   }
 
 
@@ -37,13 +55,23 @@ class VoteController extends Controller
 
   public function update(Request $request, $id)
   {
-    $vote= $this->voteRepository->editVote($request->all(), $id);
-    $response = [
-      'message' => 'Vote updated',
-      'data' => $vote
-    ];
+    try {
+      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-    return response()->json($response);
+      $vote= $this->voteRepository->editVote($request->all(), $id);
+      $response = [
+        'message' => 'Vote updated',
+        'data' => $vote
+      ];
+
+      return response()->json($response);
+
+    } catch (ValidatorException $e) {
+      return response()->json([
+        'error'   => true,
+        'message' => $e->getMessageBag()
+      ]);
+    }
   }
 
 
@@ -51,7 +79,7 @@ class VoteController extends Controller
   {
     $deleted = $this->voteRepository->delete($id);
     return response()->json([
-      'message' => 'Vote deleted.',
+      'message' => 'Vote deleted',
       'deleted' => $deleted,
     ]);
   }

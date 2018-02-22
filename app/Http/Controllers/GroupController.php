@@ -5,14 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Entities\Group;
 use App\Repositories\GroupRepository;
+use App\Validators\GroupValidator;
+use Prettus\Validator\Contracts\ValidatorInterface;
+use Prettus\Validator\Exceptions\ValidatorException;
 
 class GroupController extends Controller
 {
   protected $groupRepository;
+  protected $validator;
 
-  public function __construct(GroupRepository $groupRepository)
+  public function __construct(GroupRepository $groupRepository, GroupValidator $validator)
   {
     $this->groupRepository = $groupRepository;
+    $this->validator = $validator;
   }
 
   public function index()
@@ -35,8 +40,21 @@ class GroupController extends Controller
 
   public function store(Request $request)
   {
-    $group = $this->groupRepository->create($request->all());
-    return response()->json($group, 201);
+    try {
+      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+
+      $group = $this->groupRepository->create($request->all());
+      $response = [
+        'message' => 'Group created'
+      ];
+      return response()->json($response, 201);
+
+    } catch (ValidatorException $e) {
+      return response()->json([
+        'error'   => true,
+        'message' => $e->getMessageBag()
+      ]);
+    }
   }
 
 
@@ -48,13 +66,22 @@ class GroupController extends Controller
 
   public function update(Request $request, $id)
   {
-    $group = $this->groupRepository->editGroup($request->all(), $id);
-    $response = [
-      'message' => 'Group updated',
-      'data' => $group
-    ];
+    try {
+      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-    return response()->json($response);
+      $group = $this->groupRepository->editGroup($request->all(), $id);
+      $response = [
+        'message' => 'Group updated',
+        'data' => $group
+      ];
+      return response()->json($response);
+
+    } catch (ValidatorException $e) {
+      return response()->json([
+        'error'   => true,
+        'message' => $e->getMessageBag()
+      ]);
+    }
   }
 
 
@@ -62,7 +89,7 @@ class GroupController extends Controller
   {
     $deleted = $this->groupRepository->delete($id);
     return response()->json([
-      'message' => 'Group deleted.',
+      'message' => 'Group deleted',
       'deleted' => $deleted,
     ]);
   }

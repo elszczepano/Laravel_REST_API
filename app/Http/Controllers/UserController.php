@@ -5,14 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Entities\User;
 use App\Repositories\UserRepository;
+use App\Validators\UserValidator;
+use Prettus\Validator\Contracts\ValidatorInterface;
+use Prettus\Validator\Exceptions\ValidatorException;
 
 class UserController extends Controller
 {
   protected $userRepository;
+  protected $validator;
 
-  public function __construct(UserRepository $userRepository)
+  public function __construct(UserRepository $userRepository, UserValidator $validator)
   {
     $this->userRepository = $userRepository;
+    $this->validator = $validator;
   }
 
 
@@ -38,12 +43,25 @@ class UserController extends Controller
   {
     return $user->vote()->get();
   }
-  
+
 
   public function store(Request $request)
   {
-    //$user = $this->userRepository->createUser($request->all());
-    //return response()->json($user, 201);
+    try {
+      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+
+      $user = $this->userRepository->createUser($request->all());
+      $response = [
+        'message' => 'User created'
+      ];
+      return response()->json($response, 201);
+
+    } catch (ValidatorException $e) {
+      return response()->json([
+        'error'   => true,
+        'message' => $e->getMessageBag()
+      ]);
+    }
   }
 
 
@@ -55,13 +73,23 @@ class UserController extends Controller
 
   public function update(Request $request, $id)
   {
-    $user = $this->userRepository->editUser($request->all(), $id);
-    $response = [
-      'message' => 'User updated',
-      'data' => $user
-    ];
+    try {
+      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-    return response()->json($response);
+      $user = $this->userRepository->editUser($request->all(), $id);
+      $response = [
+        'message' => 'User updated',
+        'data' => $user
+      ];
+
+      return response()->json($response);
+
+    } catch (ValidatorException $e) {
+      return response()->json([
+        'error'   => true,
+        'message' => $e->getMessageBag()
+      ]);
+    }
   }
 
 
@@ -69,7 +97,7 @@ class UserController extends Controller
   {
     $deleted = $this->userRepository->delete($id);
     return response()->json([
-      'message' => 'Group deleted.',
+      'message' => 'Group deleted',
       'deleted' => $deleted,
     ]);
   }

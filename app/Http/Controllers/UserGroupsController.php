@@ -5,14 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Entities\UserGroup;
 use App\Repositories\UserGroupRepository;
+use App\Validators\UserGroupValidator;
+use Prettus\Validator\Contracts\ValidatorInterface;
+use Prettus\Validator\Exceptions\ValidatorException;
 
 class UserGroupsController extends Controller
 {
   protected $userGroupRepository;
+  protected $validator;
 
-  public function __construct(UserGroupRepository $userGroupRepository)
+  public function __construct(UserGroupRepository $userGroupRepository, UserGroupValidator $validator)
   {
     $this->userGroupRepository = $userGroupRepository;
+    $this->validator = $validator;
   }
 
 
@@ -24,8 +29,21 @@ class UserGroupsController extends Controller
 
   public function store(Request $request)
   {
-    $userGroup = $this->userGroupRepository->createUserGroup($request->all());
-    return response()->json($userGroup, 201);
+    try {
+      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+
+      $userGroup = $this->userGroupRepository->createUserGroup($request->all());
+      $response = [
+        'message' => 'Resource created'
+      ];
+      return response()->json($response, 201);
+
+    } catch (ValidatorException $e) {
+      return response()->json([
+        'error'   => true,
+        'message' => $e->getMessageBag()
+      ]);
+    }
   }
 
 
@@ -37,13 +55,23 @@ class UserGroupsController extends Controller
 
   public function update(Request $request, $id)
   {
-    $userGroup = $this->userGroupRepository->editUserGroup($request->all(), $id);
-    $response = [
-      'message' => 'Updated',
-      'data' => $userGroup
-    ];
+    try {
+      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-    return response()->json($response);
+      $userGroup = $this->userGroupRepository->editUserGroup($request->all(), $id);
+      $response = [
+        'message' => 'Resource updated',
+        'data' => $userGroup
+      ];
+
+      return response()->json($response);
+
+    } catch (ValidatorException $e) {
+      return response()->json([
+        'error'   => true,
+        'message' => $e->getMessageBag()
+      ]);
+    }
   }
 
 
