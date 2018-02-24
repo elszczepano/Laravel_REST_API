@@ -34,7 +34,7 @@ class VoteController extends Controller
 
       $vote = $this->repository->createVote($request->all(), $request->get('user_id'), $request->get('post_id'));
       $response = [
-        'message' => 'Vote created',
+        'message' => 'Vote created succesfully',
         'data' => $vote
       ];
       return response()->json($response, 201);
@@ -61,7 +61,7 @@ class VoteController extends Controller
 
       $vote= $this->repository->editVote($request->all(), $id);
       $response = [
-        'message' => 'Vote updated',
+        'message' => 'Vote updated succesfully',
         'data' => $vote
       ];
 
@@ -80,7 +80,7 @@ class VoteController extends Controller
   {
     $deleted = $this->repository->delete($id);
     return response()->json([
-      'message' => 'Vote deleted',
+      'message' => 'Vote deleted succesfully',
       'deleted' => $deleted,
     ]);
   }

@@ -34,7 +34,7 @@ class IconController extends Controller
 
       $icon = $this->repository->create($request->all());
       $response = [
-        'message' => 'Icon created',
+        'message' => 'Icon created succesfully',
         'data' => $icon
       ];
       return response()->json($response, 201);
@@ -61,7 +61,7 @@ class IconController extends Controller
 
       $icon = $this->repository->editIcon($request->all(), $id);
       $response = [
-        'message' => 'Icon updated',
+        'message' => 'Icon updated succesfully',
         'data' => $icon
       ];
 
@@ -80,7 +80,7 @@ class IconController extends Controller
   {
     $deleted = $this->repository->delete($id);
     return response()->json([
-      'message' => 'Icon deleted',
+      'message' => 'Icon deleted succesfully',
       'deleted' => $deleted,
     ]);
   }

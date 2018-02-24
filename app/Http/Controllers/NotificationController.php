@@ -41,7 +41,7 @@ class NotificationController extends Controller
 
       $notification = $this->repository->createNotification($request->all(), $request->get('user_id'));
       $response = [
-        'message' => 'Notification created',
+        'message' => 'Notification created succesfully',
         'data' => $notification
       ];
       return response()->json($response, 201);
@@ -68,7 +68,7 @@ class NotificationController extends Controller
 
       $notification = $this->repository->editNotification($request->all(), $id);
       $response = [
-        'message' => 'Notification updated',
+        'message' => 'Notification updated succesfully',
         'data' => $notification
       ];
 
@@ -87,7 +87,7 @@ class NotificationController extends Controller
   {
     $deleted = $this->repository->delete($id);
     return response()->json([
-      'message' => 'Notification deleted',
+      'message' => 'Notification deleted succesfully',
       'deleted' => $deleted,
     ]);
   }

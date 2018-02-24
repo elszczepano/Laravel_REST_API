@@ -52,7 +52,7 @@ class UserController extends Controller
 
       $user = $this->repository->createUser($request->all());
       $response = [
-        'message' => 'User created',
+        'message' => 'User created succesfully',
         'data' => $user
       ];
       return response()->json($response, 201);
@@ -79,7 +79,7 @@ class UserController extends Controller
 
       $user = $this->repository->editUser($request->all(), $id);
       $response = [
-        'message' => 'User updated',
+        'message' => 'User updated succesfully',
         'data' => $user
       ];
 
@@ -98,7 +98,7 @@ class UserController extends Controller
   {
     $deleted = $this->repository->delete($id);
     return response()->json([
-      'message' => 'Group deleted',
+      'message' => 'Group deleted succesfully',
       'deleted' => $deleted,
     ]);
   }

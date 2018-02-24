@@ -45,7 +45,7 @@ class GroupController extends Controller
 
       $group = $this->repository->create($request->all());
       $response = [
-        'message' => 'Group created',
+        'message' => 'Group created succesfully',
         'data' => $group
       ];
       return response()->json($response, 201);
@@ -72,7 +72,7 @@ class GroupController extends Controller
 
       $group = $this->repository->editGroup($request->all(), $id);
       $response = [
-        'message' => 'Group updated',
+        'message' => 'Group updated succesfully',
         'data' => $group
       ];
       return response()->json($response);
@@ -90,7 +90,7 @@ class GroupController extends Controller
   {
     $deleted = $this->repository->delete($id);
     return response()->json([
-      'message' => 'Group deleted',
+      'message' => 'Group deleted succesfully',
       'deleted' => $deleted,
     ]);
   }

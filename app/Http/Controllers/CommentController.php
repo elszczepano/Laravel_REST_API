@@ -34,7 +34,7 @@ class CommentController extends Controller
 
       $comment = $this->repository->createComment($request->all(), $request->get('user_id'), $request->get('post_id'));
       $response = [
-        'message' => 'Comment created',
+        'message' => 'Comment created succesfully',
         'data' => $comment
       ];
       return response()->json($response, 201);
@@ -61,7 +61,7 @@ class CommentController extends Controller
 
       $comment = $this->repository->editComment($request->all(), $id);
       $response = [
-        'message' => 'Comment updated',
+        'message' => 'Comment updated succesfully',
         'data' => $comment
       ];
       return response()->json($response);
@@ -79,7 +79,7 @@ class CommentController extends Controller
   {
     $deleted = $this->repository->delete($id);
     return response()->json([
-      'message' => 'Comment deleted',
+      'message' => 'Comment deleted succesfully',
       'deleted' => $deleted,
     ]);
   }

@@ -34,7 +34,7 @@ class UserGroupsController extends Controller
 
       $userGroup = $this->repository->create($request->all());
       $response = [
-        'message' => 'Resource created',
+        'message' => 'Resource created succesfully',
         'data' => $userGroup
       ];
       return response()->json($response, 201);
@@ -61,7 +61,7 @@ class UserGroupsController extends Controller
 
       $userGroup = $this->repository->editUserGroup($request->all(), $id);
       $response = [
-        'message' => 'Resource updated',
+        'message' => 'Resource updated succesfully',
         'data' => $userGroup
       ];
 
@@ -80,7 +80,7 @@ class UserGroupsController extends Controller
   {
     $deleted = $this->repository->delete($id);
     return response()->json([
-      'message' => 'User removed from group',
+      'message' => 'User removed from group succesfully',
       'deleted' => $deleted,
     ]);
   }

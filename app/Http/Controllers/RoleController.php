@@ -34,7 +34,7 @@ class RoleController extends Controller
 
       $role = $this->repository->create($request->all());
       $response = [
-        'message' => 'Role created',
+        'message' => 'Role created succesfully',
         'data' => $role
       ];
       return response()->json($response, 201);
@@ -61,7 +61,7 @@ class RoleController extends Controller
 
       $role = $this->repository->editRole($request->all(), $id);
       $response = [
-        'message' => 'Role updated',
+        'message' => 'Role updated succesfully',
         'data' => $role
       ];
 
@@ -80,7 +80,7 @@ class RoleController extends Controller
   {
     $deleted = $this->repository->delete($id);
     return response()->json([
-      'message' => 'Role deleted',
+      'message' => 'Role deleted succesfully',
       'deleted' => $deleted,
     ]);
   }

@@ -46,7 +46,7 @@ class PostController extends Controller
 
       $post = $this->repository->createPost($request->all(), $request->get('user_id'), $request->get('group_id'));
       $response = [
-        'message' => 'Post created',
+        'message' => 'Post created succesfully',
         'data' => $post
       ];
       return response()->json($response, 201);
@@ -73,7 +73,7 @@ class PostController extends Controller
 
       $post = $this->repository->editPost($request->all(), $id);
       $response = [
-        'message' => 'Post updated',
+        'message' => 'Post updated succesfully',
         'data' => $post
       ];
 
@@ -94,7 +94,7 @@ class PostController extends Controller
   {
     $deleted = $this->repository->delete($id);
     return response()->json([
-      'message' => 'Post deleted',
+      'message' => 'Post deleted succesfully',
       'deleted' => $deleted,
     ]);
   }
