@@ -20,10 +20,12 @@ class GroupValidator extends LaravelValidator
     protected $rules = [
         ValidatorInterface::RULE_CREATE => [
           'name' => 'required|max:255',
+          'background_image' => 'image',
           'icon_id' => 'required|exists:icons,id|integer'
         ],
         ValidatorInterface::RULE_UPDATE => [
           'name' => 'max:255',
+          'background_image' => 'image',
           'icon_id' => 'exists:icons,id|integer'
         ],
     ];
