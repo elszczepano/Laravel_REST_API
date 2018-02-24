@@ -11,19 +11,19 @@ use Prettus\Validator\Exceptions\ValidatorException;
 
 class CommentController extends Controller
 {
-  protected $commentRepository;
+  protected $repository;
   protected $validator;
 
-  public function __construct(CommentRepository $commentRepository, CommentValidator $validator)
+  public function __construct(CommentRepository $repository, CommentValidator $validator)
   {
-    $this->commentRepository = $commentRepository;
+    $this->repository = $repository;
     $this->validator = $validator;
   }
 
 
   public function index()
   {
-    return $this->commentRepository->get();
+    return $this->repository->get();
   }
 
 
@@ -32,9 +32,10 @@ class CommentController extends Controller
     try {
       $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-      $comment = $this->commentRepository->createComment($request->all(), $request->get('user_id'), $request->get('post_id'));
+      $comment = $this->repository->createComment($request->all(), $request->get('user_id'), $request->get('post_id'));
       $response = [
-        'message' => 'Comment created'
+        'message' => 'Comment created',
+        'data' => $comment
       ];
       return response()->json($response, 201);
 
@@ -58,7 +59,7 @@ class CommentController extends Controller
     try {
       $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-      $comment = $this->commentRepository->editComment($request->all(), $id);
+      $comment = $this->repository->editComment($request->all(), $id);
       $response = [
         'message' => 'Comment updated',
         'data' => $comment
@@ -76,7 +77,7 @@ class CommentController extends Controller
 
   public function destroy($id)
   {
-    $deleted = $this->commentRepository->delete($id);
+    $deleted = $this->repository->delete($id);
     return response()->json([
       'message' => 'Comment deleted',
       'deleted' => $deleted,

@@ -9,13 +9,6 @@ use App\Entities\UserGroup;
 
 class UserGroupRepositoryEloquent extends BaseRepository implements UserGroupRepository
 {
-  public function createUserGroup($params)
-  {
-    $userGroup = new UserGroup();
-    $userGroup->fill($params);
-    $userGroup->save();
-  }
-
   public function editUserGroup($params, $id)
   {
     $userGroup = $this->update($params, $id);

@@ -11,19 +11,19 @@ use Prettus\Validator\Exceptions\ValidatorException;
 
 class RoleController extends Controller
 {
-  protected $roleRepository;
+  protected $repository;
   protected $validator;
 
-  public function __construct(RoleRepository $roleRepository, RoleValidator $validator)
+  public function __construct(RoleRepository $repository, RoleValidator $validator)
   {
-    $this->roleRepository = $roleRepository;
+    $this->repository = $repository;
     $this->validator = $validator;
   }
 
 
   public function index()
   {
-    return $this->roleRepository->get();
+    return $this->repository->get();
   }
 
 
@@ -32,9 +32,10 @@ class RoleController extends Controller
     try {
       $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-      $role = $this->roleRepository->createRole($request->all());
+      $role = $this->repository->create($request->all());
       $response = [
-        'message' => 'Role created'
+        'message' => 'Role created',
+        'data' => $role
       ];
       return response()->json($response, 201);
 
@@ -58,7 +59,7 @@ class RoleController extends Controller
     try {
       $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-      $role = $this->roleRepository->editRole($request->all(), $id);
+      $role = $this->repository->editRole($request->all(), $id);
       $response = [
         'message' => 'Role updated',
         'data' => $role
@@ -77,7 +78,7 @@ class RoleController extends Controller
 
   public function destroy($id)
   {
-    $deleted = $this->roleRepository->delete($id);
+    $deleted = $this->repository->delete($id);
     return response()->json([
       'message' => 'Role deleted',
       'deleted' => $deleted,

@@ -11,19 +11,19 @@ use Prettus\Validator\Exceptions\ValidatorException;
 
 class VoteController extends Controller
 {
-  protected $voteRepository;
+  protected $repository;
   protected $validator;
 
-  public function __construct(VoteRepository $voteRepository, VoteValidator $validator)
+  public function __construct(VoteRepository $repository, VoteValidator $validator)
   {
-    $this->voteRepository = $voteRepository;
+    $this->repository = $repository;
     $this->validator = $validator;
   }
 
 
   public function index()
   {
-    return $this->voteRepository->get();
+    return $this->repository->get();
   }
 
 
@@ -32,9 +32,10 @@ class VoteController extends Controller
     try {
       $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-      $vote = $this->voteRepository->createVote($request->all(), $request->get('user_id'), $request->get('post_id'));
+      $vote = $this->repository->createVote($request->all(), $request->get('user_id'), $request->get('post_id'));
       $response = [
-        'message' => 'Vote created'
+        'message' => 'Vote created',
+        'data' => $vote
       ];
       return response()->json($response, 201);
 
@@ -58,7 +59,7 @@ class VoteController extends Controller
     try {
       $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-      $vote= $this->voteRepository->editVote($request->all(), $id);
+      $vote= $this->repository->editVote($request->all(), $id);
       $response = [
         'message' => 'Vote updated',
         'data' => $vote
@@ -77,7 +78,7 @@ class VoteController extends Controller
 
   public function destroy($id)
   {
-    $deleted = $this->voteRepository->delete($id);
+    $deleted = $this->repository->delete($id);
     return response()->json([
       'message' => 'Vote deleted',
       'deleted' => $deleted,

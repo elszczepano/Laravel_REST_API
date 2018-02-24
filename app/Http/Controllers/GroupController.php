@@ -11,18 +11,18 @@ use Prettus\Validator\Exceptions\ValidatorException;
 
 class GroupController extends Controller
 {
-  protected $groupRepository;
+  protected $repository;
   protected $validator;
 
-  public function __construct(GroupRepository $groupRepository, GroupValidator $validator)
+  public function __construct(GroupRepository $repository, GroupValidator $validator)
   {
-    $this->groupRepository = $groupRepository;
+    $this->repository = $repository;
     $this->validator = $validator;
   }
 
   public function index()
   {
-    return $this->groupRepository->get();
+    return $this->repository->get();
   }
 
 
@@ -43,9 +43,10 @@ class GroupController extends Controller
     try {
       $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-      $group = $this->groupRepository->create($request->all());
+      $group = $this->repository->create($request->all());
       $response = [
-        'message' => 'Group created'
+        'message' => 'Group created',
+        'data' => $group
       ];
       return response()->json($response, 201);
 
@@ -69,7 +70,7 @@ class GroupController extends Controller
     try {
       $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-      $group = $this->groupRepository->editGroup($request->all(), $id);
+      $group = $this->repository->editGroup($request->all(), $id);
       $response = [
         'message' => 'Group updated',
         'data' => $group
@@ -87,7 +88,7 @@ class GroupController extends Controller
 
   public function destroy($id)
   {
-    $deleted = $this->groupRepository->delete($id);
+    $deleted = $this->repository->delete($id);
     return response()->json([
       'message' => 'Group deleted',
       'deleted' => $deleted,

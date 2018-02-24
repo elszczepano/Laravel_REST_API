@@ -16,12 +16,14 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
     $vote->user()->associate($userId);
 		$vote->post()->associate($postId);
     $vote ->save();
+
+    return $vote;
   }
 
   public function editVote($params, $id)
   {
     $vote  = $this->update($params, $id);
-    return $vote ;
+    return $vote;
   }
 
   public function model()

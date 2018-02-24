@@ -11,19 +11,19 @@ use Prettus\Validator\Exceptions\ValidatorException;
 
 class IconController extends Controller
 {
-  protected $iconRepository;
+  protected $repository;
   protected $validator;
 
-  public function __construct(IconRepository $iconRepository, IconValidator $validator)
+  public function __construct(IconRepository $repository, IconValidator $validator)
   {
-    $this->iconRepository = $iconRepository;
+    $this->repository = $repository;
     $this->validator = $validator;
   }
 
 
   public function index()
   {
-    return $this->iconRepository->get();
+    return $this->repository->get();
   }
 
 
@@ -32,9 +32,10 @@ class IconController extends Controller
     try {
       $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-      $icon = $this->iconRepository->create($request->all());
+      $icon = $this->repository->create($request->all());
       $response = [
-        'message' => 'Icon created'
+        'message' => 'Icon created',
+        'data' => $icon
       ];
       return response()->json($response, 201);
 
@@ -58,7 +59,7 @@ class IconController extends Controller
     try {
       $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-      $icon = $this->iconRepository->editIcon($request->all(), $id);
+      $icon = $this->repository->editIcon($request->all(), $id);
       $response = [
         'message' => 'Icon updated',
         'data' => $icon
@@ -77,7 +78,7 @@ class IconController extends Controller
 
   public function destroy($id)
   {
-    $deleted = $this->iconRepository->delete($id);
+    $deleted = $this->repository->delete($id);
     return response()->json([
       'message' => 'Icon deleted',
       'deleted' => $deleted,

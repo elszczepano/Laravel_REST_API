@@ -10,13 +10,6 @@ use App\Validators\RoleValidator;
 
 class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
 {
-  public function createRole($params)
-  {
-    $role = new Role();
-    $role->fill($params);
-    $role->save();
-  }
-  
   public function editRole($params, $id)
   {
     $role = $this->update($params, $id);

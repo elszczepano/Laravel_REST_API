@@ -11,19 +11,19 @@ use Prettus\Validator\Exceptions\ValidatorException;
 
 class UserController extends Controller
 {
-  protected $userRepository;
+  protected $repository;
   protected $validator;
 
-  public function __construct(UserRepository $userRepository, UserValidator $validator)
+  public function __construct(UserRepository $repository, UserValidator $validator)
   {
-    $this->userRepository = $userRepository;
+    $this->repository = $repository;
     $this->validator = $validator;
   }
 
 
   public function index()
   {
-    return $this->userRepository->get();
+    return $this->repository->get();
   }
 
 
@@ -50,9 +50,10 @@ class UserController extends Controller
     try {
       $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-      $user = $this->userRepository->createUser($request->all());
+      $user = $this->repository->create($request->all());
       $response = [
-        'message' => 'User created'
+        'message' => 'User created',
+        'data' => $user
       ];
       return response()->json($response, 201);
 
@@ -76,7 +77,7 @@ class UserController extends Controller
     try {
       $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-      $user = $this->userRepository->editUser($request->all(), $id);
+      $user = $this->repository->editUser($request->all(), $id);
       $response = [
         'message' => 'User updated',
         'data' => $user
@@ -95,7 +96,7 @@ class UserController extends Controller
 
   public function destroy($id)
   {
-    $deleted = $this->userRepository->delete($id);
+    $deleted = $this->repository->delete($id);
     return response()->json([
       'message' => 'Group deleted',
       'deleted' => $deleted,

@@ -10,13 +10,6 @@ use App\Validators\UserValidator;
 
 class UserRepositoryEloquent extends BaseRepository implements UserRepository
 {
-  public function createUser($params)
-  {
-    $user = new User();
-    $user->fill($params);
-    $user->save();
-  }
-
   public function editUser($params, $id)
   {
     $user = $this->update($params, $id);

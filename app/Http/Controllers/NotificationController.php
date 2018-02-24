@@ -12,19 +12,19 @@ use Prettus\Validator\Exceptions\ValidatorException;
 
 class NotificationController extends Controller
 {
-  protected $notificationRepository;
+  protected $repository;
   protected $validator;
 
-  public function __construct(NotificationRepository $notificationRepository, NotificationValidator $validator)
+  public function __construct(NotificationRepository $repository, NotificationValidator $validator)
   {
-    $this->notificationRepository = $notificationRepository;
+    $this->repository = $repository;
     $this->validator = $validator;
   }
 
 
   public function index()
   {
-    return $this->notificationRepository->get();
+    return $this->repository->get();
   }
 
 
@@ -39,9 +39,10 @@ class NotificationController extends Controller
     try {
       $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-      $notification = $this->notificationRepository->createNotification($request->all(), $request->get('user_id'));
+      $notification = $this->repository->createNotification($request->all(), $request->get('user_id'));
       $response = [
-        'message' => 'Notification created'
+        'message' => 'Notification created',
+        'data' => $notification
       ];
       return response()->json($response, 201);
 
@@ -65,7 +66,7 @@ class NotificationController extends Controller
     try {
       $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-      $notification = $this->notificationRepository->editNotification($request->all(), $id);
+      $notification = $this->repository->editNotification($request->all(), $id);
       $response = [
         'message' => 'Notification updated',
         'data' => $notification
@@ -84,7 +85,7 @@ class NotificationController extends Controller
 
   public function destroy($id)
   {
-    $deleted = $this->notificationRepository->delete($id);
+    $deleted = $this->repository->delete($id);
     return response()->json([
       'message' => 'Notification deleted',
       'deleted' => $deleted,

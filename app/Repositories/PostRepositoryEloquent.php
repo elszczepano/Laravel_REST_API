@@ -16,6 +16,8 @@ class PostRepositoryEloquent extends BaseRepository implements PostRepository
     $post->user()->associate($userId);
     $post->group()->associate($groupId);
     $post->save();
+
+    return $post;
   }
 
   public function editPost($params, $id)

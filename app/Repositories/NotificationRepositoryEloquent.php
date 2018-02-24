@@ -15,6 +15,8 @@ class NotificationRepositoryEloquent extends BaseRepository implements Notificat
     $notification->fill($params);
     $notification->user()->associate($userId);
     $notification->save();
+
+    return $notification;
   }
 
   public function editNotification($params, $id)

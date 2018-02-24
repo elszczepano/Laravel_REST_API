@@ -11,19 +11,19 @@ use Prettus\Validator\Exceptions\ValidatorException;
 
 class PostController extends Controller
 {
-  protected $postRepository;
+  protected $repository;
   protected $validator;
 
-  public function __construct(PostRepository $postRepository, PostValidator $validator)
+  public function __construct(PostRepository $repository, PostValidator $validator)
   {
-    $this->postRepository = $postRepository;
+    $this->repository= $repository;
     $this->validator = $validator;
   }
 
 
   public function index()
   {
-    return $this->postRepository->get();
+    return $this->repository->get();
   }
 
 
@@ -44,9 +44,10 @@ class PostController extends Controller
     try {
       $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-      $post = $this->postRepository->createPost($request->all(), $request->get('user_id'), $request->get('group_id'));
+      $post = $this->repository->createPost($request->all(), $request->get('user_id'), $request->get('group_id'));
       $response = [
-        'message' => 'Post created'
+        'message' => 'Post created',
+        'data' => $post
       ];
       return response()->json($response, 201);
 
@@ -70,7 +71,7 @@ class PostController extends Controller
     try {
       $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-      $post = $this->postRepository->editPost($request->all(), $id);
+      $post = $this->repository->editPost($request->all(), $id);
       $response = [
         'message' => 'Post updated',
         'data' => $post
@@ -91,7 +92,7 @@ class PostController extends Controller
 
   public function destroy($id)
   {
-    $deleted = $this->postRepository->delete($id);
+    $deleted = $this->repository->delete($id);
     return response()->json([
       'message' => 'Post deleted',
       'deleted' => $deleted,

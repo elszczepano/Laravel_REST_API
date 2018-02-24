@@ -11,19 +11,19 @@ use Prettus\Validator\Exceptions\ValidatorException;
 
 class UserGroupsController extends Controller
 {
-  protected $userGroupRepository;
+  protected $repository;
   protected $validator;
 
-  public function __construct(UserGroupRepository $userGroupRepository, UserGroupValidator $validator)
+  public function __construct(UserGroupRepository $repository, UserGroupValidator $validator)
   {
-    $this->userGroupRepository = $userGroupRepository;
+    $this->repository = $repository;
     $this->validator = $validator;
   }
 
 
   public function index()
   {
-    return $this->userGroupRepository->get();
+    return $this->repository->get();
   }
 
 
@@ -32,9 +32,10 @@ class UserGroupsController extends Controller
     try {
       $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-      $userGroup = $this->userGroupRepository->createUserGroup($request->all());
+      $userGroup = $this->repository->create($request->all());
       $response = [
-        'message' => 'Resource created'
+        'message' => 'Resource created',
+        'data' => $userGroup
       ];
       return response()->json($response, 201);
 
@@ -58,7 +59,7 @@ class UserGroupsController extends Controller
     try {
       $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-      $userGroup = $this->userGroupRepository->editUserGroup($request->all(), $id);
+      $userGroup = $this->repository->editUserGroup($request->all(), $id);
       $response = [
         'message' => 'Resource updated',
         'data' => $userGroup
@@ -77,7 +78,7 @@ class UserGroupsController extends Controller
 
   public function destroy($id)
   {
-    $deleted = $this->userGroupRepository->delete($id);
+    $deleted = $this->repository->delete($id);
     return response()->json([
       'message' => 'User removed from group',
       'deleted' => $deleted,
