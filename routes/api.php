@@ -3,9 +3,10 @@
 use Illuminate\Http\Request;
 
 Route::post('login', 'AuthController@login');
+Route::post('register', 'UserController@store');
 
 Route::group([
-  //'middleware' => 'auth.api'
+  'middleware' => 'auth.api'
 ], function() {
 
   Route::post('logout', 'AuthController@logout');
@@ -23,7 +24,7 @@ Route::group([
     'user-groups' => 'UserGroupsController',
     'votes' => 'VoteController'
   ]);
-  
+
   Route::get('notification/user/{user}', 'NotificationController@userNotifications');
   Route::get('user/groups/{user}', 'UserController@userGroups');
   Route::get('group/users/{group}', 'GroupController@groupUsers');

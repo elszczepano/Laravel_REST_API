@@ -50,7 +50,7 @@ class UserController extends Controller
     try {
       $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-      $user = $this->repository->create($request->all());
+      $user = $this->repository->createUser($request->all());
       $response = [
         'message' => 'User created',
         'data' => $user
