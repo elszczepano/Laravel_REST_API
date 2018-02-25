@@ -27,8 +27,8 @@ class UserValidator extends LaravelValidator
           'password' => 'required|max:255'
         ],
         ValidatorInterface::RULE_UPDATE => [
-          'name' => 'required|max:255',
-          'surname' => 'required|max:255',
+          'name' => 'max:255',
+          'surname' => 'max:255',
           'email' => 'unique:users,email|max:255|email',
           'birth_date' => 'date|date_format:Y-m-d|before:tomorrow',
           'background_image' => 'image',

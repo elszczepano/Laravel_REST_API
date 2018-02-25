@@ -26,14 +26,16 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
     }
     $user->fill($params);
     $user->save();
-    
+
     return $user;
   }
 
 
   public function editUser($params, $id)
   {
-    $params['password'] = bcrypt($params['password']);
+    if(isset($params['password'])) {
+      $params['password'] = bcrypt($params['password']);
+    }
     if(isset($params['avatar'])) {
       $params['avatar'] = Storage::disk('public')->put($this->directory(), $params['avatar']);
     }
