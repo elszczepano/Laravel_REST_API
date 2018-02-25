@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Groupee'),
+    'name' => env('APP_NAME', 'REST API'),
 
     /*
     |--------------------------------------------------------------------------
@@ -164,7 +164,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
-
+        
         /*
          * Package Service Providers...
          */
