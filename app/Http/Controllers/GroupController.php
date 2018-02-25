@@ -20,9 +20,10 @@ class GroupController extends Controller
     $this->validator = $validator;
   }
 
-  public function index()
+
+  public function index(Group $group)
   {
-    return $this->repository->get();
+    return $group->all();
   }
 
 

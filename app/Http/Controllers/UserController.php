@@ -21,9 +21,9 @@ class UserController extends Controller
   }
 
 
-  public function index()
+  public function index(User $user)
   {
-    return $this->repository->get();
+    return $user->all();
   }
 
 

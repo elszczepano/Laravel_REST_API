@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Entities\UserGroup;
 use App\Repositories\UserGroupRepository;
-use App\Validators\UserGroupValidator;
+use App\Validators\UserGroupsValidator;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 
@@ -14,7 +14,7 @@ class UserGroupsController extends Controller
   protected $repository;
   protected $validator;
 
-  public function __construct(UserGroupRepository $repository, UserGroupValidator $validator)
+  public function __construct(UserGroupRepository $repository, UserGroupsValidator $validator)
   {
     $this->repository = $repository;
     $this->validator = $validator;
