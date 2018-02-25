@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Entities\User;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Http\UploadedFile;
 
 class UserTest extends TestCase
 {
@@ -24,7 +25,8 @@ class UserTest extends TestCase
 
     $payload = [
       'name' => 'Joe',
-      'password' => 'secret'
+      'password' => 'secret',
+      'avatar' => UploadedFile::fake()->image('avatar.jpg'),
     ];
 
     $response = $this->json('put', '/api/users/' . $user->id, $payload, $this->headers())
