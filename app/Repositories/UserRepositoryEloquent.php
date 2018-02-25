@@ -11,11 +11,10 @@ use Illuminate\Support\Facades\Storage;
 
 class UserRepositoryEloquent extends BaseRepository implements UserRepository
 {
-  protected $directory;
-
-  public function __construct()
+  public function directory()
   {
-     $this->directory = Date('ym');
+    $directory = Date('ym');
+    return $directory;
   }
 
   public function createUser($params)
@@ -23,11 +22,11 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
     $user = new User();
     $params['password'] = bcrypt($params['password']);
     if(isset($params['avatar'])) {
-      $params['avatar'] = Storage::disk('public')->put($this->directory, $params['avatar']);
+      $params['avatar'] = Storage::disk('public')->put($this->directory(), $params['avatar']);
     }
     $user->fill($params);
     $user->save();
-
+    
     return $user;
   }
 
@@ -36,7 +35,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
   {
     $params['password'] = bcrypt($params['password']);
     if(isset($params['avatar'])) {
-      $params['avatar'] = Storage::disk('public')->put($this->directory, $params['avatar']);
+      $params['avatar'] = Storage::disk('public')->put($this->directory(), $params['avatar']);
     }
     $user = $this->update($params, $id);
     return $user;

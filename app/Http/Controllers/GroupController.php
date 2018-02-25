@@ -21,9 +21,9 @@ class GroupController extends Controller
   }
 
 
-  public function index(Group $group)
+  public function index()
   {
-    return $group->all();
+    return $this->repository->get();
   }
 
 
@@ -44,7 +44,7 @@ class GroupController extends Controller
     try {
       $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-      $group = $this->repository->create($request->all());
+      $group = $this->repository->createGroup($request->all());
       $response = [
         'message' => 'Group created succesfully',
         'data' => $group

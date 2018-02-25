@@ -6,34 +6,37 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\GroupRepository;
 use App\Entities\Group;
+use App\Validators\GroupValidator;
+use Illuminate\Support\Facades\Storage;
 
 class GroupRepositoryEloquent extends BaseRepository implements GroupRepository
 {
-  protected $directory;
 
-  public function __construct()
+  public function directory()
   {
-     $this->directory = Date('ym');
+    $directory = Date('ym');
+    return $directory;
   }
 
   public function createGroup($params)
   {
-    $user = new User();
+    $group = new Group();
     if(isset($params['background_image'])) {
-      $params['background_image'] = Storage::disk('public')->put($directory, $params['background_image']);
+      $params['background_image'] = Storage::disk('public')->put($this->directory(), $params['background_image']);
     }
-    $user->fill($params);
-    $user->save();
+    
+    $group->fill($params);
+    $group->save();
 
-    return $user;
+    return $group;
   }
-
 
   public function editGroup($params, $id)
   {
     if(isset($params['background_image'])) {
-      $params['background_image'] = Storage::disk('public')->put($directory, $params['background_image']);
+      $params['background_image'] = Storage::disk('public')->put($this->directory(), $params['background_image']);
     }
+
     $group = $this->update($params, $id);
     return $group;
   }
