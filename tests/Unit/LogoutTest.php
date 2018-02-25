@@ -10,7 +10,8 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class LogoutTest extends TestCase
 {
-  public function headers() {
+  public function headers()
+  {
     $user = User::first();
     $token = JWTAuth::fromUser($user);
     $headers = ['Authorization' => "Bearer $token"];
