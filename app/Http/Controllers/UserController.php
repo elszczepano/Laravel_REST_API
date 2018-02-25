@@ -61,7 +61,7 @@ class UserController extends Controller
       return response()->json([
         'error'   => true,
         'message' => $e->getMessageBag()
-      ]);
+      ], 422);
     }
   }
 
