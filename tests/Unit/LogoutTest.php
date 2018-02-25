@@ -10,25 +10,25 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class LogoutTest extends TestCase
 {
+  public function headers() {
+    $user = User::first();
+    $token = JWTAuth::fromUser($user);
+    $headers = ['Authorization' => "Bearer $token"];
+    return $headers;
+  }
+
   public function testUserIsLoggedOutProperly()
-    {
-        $user = User::first();
-        $token = JWTAuth::fromUser($user);
-        $headers = ['Authorization' => "Bearer $token"];
+  {
+    $this->json('get', '/api/posts', [], $this->headers())->assertStatus(200);
+    $this->json('post', '/api/logout', [], $this->headers())->assertStatus(200);
+  }
 
-        $this->json('get', '/api/posts', [], $headers)->assertStatus(200);
-        $this->json('post', '/api/logout', [], $headers)->assertStatus(200);
+  public function testUserWithNullToken()
+  {
+    $user = User::first();
+    $token = null;
+    $headers = ['Authorization' => "Bearer $token"];
 
-    }
-
-    public function testUserWithNullToken()
-    {
-      $user = User::first();
-      $token = null;
-      $headers = ['Authorization' => "Bearer $token"];
-
-
-
-      $this->json('get', '/api/posts', [], $headers)->assertStatus(401);
-    }
+    $this->json('get', '/api/posts', [], $headers)->assertStatus(401);
+  }
 }
