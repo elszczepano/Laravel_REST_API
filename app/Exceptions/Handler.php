@@ -53,7 +53,7 @@ class Handler extends ExceptionHandler
     if ($exception instanceof UnauthorizedHttpException) {
       return response()->json( [
         'success' => false,
-        'message' => 'Authorization failed - first sign in'
+        'message' => 'Authentication failed - first sign in'
       ], 401);
     }
 
