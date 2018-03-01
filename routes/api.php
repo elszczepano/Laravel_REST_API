@@ -33,4 +33,5 @@ Route::group([
   Route::get('post/comments/{post}', 'PostController@postComments');
   Route::get('post/votes/{post}', 'PostController@postVotes');
   Route::get('user/votes/{user}', 'UserController@userVotes');
+  Route::get('search/group', 'GroupController@searchGroups');
 });

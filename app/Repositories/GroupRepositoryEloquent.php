@@ -20,25 +20,25 @@ class GroupRepositoryEloquent extends BaseRepository implements GroupRepository
 
   public function createGroup($params)
   {
-    $group = new Group();
-    if(isset($params['background_image'])) {
-      $params['background_image'] = Storage::disk('public')->put($this->directory(), $params['background_image']);
-    }
-    
-    $group->fill($params);
-    $group->save();
+      $group = new Group();
+      if(isset($params['background_image'])) {
+        $params['background_image'] = Storage::disk('public')->put($this->directory(), $params['background_image']);
+      }
 
-    return $group;
+      $group->fill($params);
+      $group->save();
+
+      return $group;
   }
 
   public function editGroup($params, $id)
   {
-    if(isset($params['background_image'])) {
-      $params['background_image'] = Storage::disk('public')->put($this->directory(), $params['background_image']);
-    }
+      if(isset($params['background_image'])) {
+        $params['background_image'] = Storage::disk('public')->put($this->directory(), $params['background_image']);
+      }
 
-    $group = $this->update($params, $id);
-    return $group;
+      $group = $this->update($params, $id);
+      return $group;
   }
 
   public function model()

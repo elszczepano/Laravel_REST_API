@@ -27,6 +27,13 @@ class GroupController extends Controller
   }
 
 
+  public function searchGroups(Request $request, Group $group)
+  {
+    $name = $request->get('name');
+    return $group->where('name', 'like', '%'.$name.'%')->get();
+  }
+
+
   public function groupUsers(Group $group)
   {
     return $group->user()->get();
