@@ -90,4 +90,34 @@ class PostTest extends TestCase
       ]
     ]);
   }
+
+  public function testPostVotesAreListedCorrectly()
+  {
+    $response = $this->json('get', '/api/post/votes/3', [], $this->headers())
+    ->assertStatus(200)
+    ->assertJsonStructure([
+      '*' => [
+        "user_id",
+        "post_id",
+        "voted",
+        "updated_at",
+        "created_at"
+      ]
+    ]);
+  }
+
+  public function testPostCommentsAreListedCorrectly()
+  {
+    $response = $this->json('get', '/api/post/comments/3', [], $this->headers())
+    ->assertStatus(200)
+    ->assertJsonStructure([
+      '*' => [
+        "content",
+        "user_id",
+        "post_id",
+        "updated_at",
+        "created_at"
+      ]
+    ]);
+  }
 }
