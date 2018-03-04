@@ -73,4 +73,42 @@ class UserTest extends TestCase
       ]
     ]);
   }
+
+  public function testUserGroupsAreListedCorrectly()
+  {
+    $response = $this->json('get', '/api/user/groups/1', [], $this->headers())
+    ->assertStatus(200)
+    ->assertJsonStructure([
+      '*' => [
+        "name",
+        "description",
+        "background_image",
+        "icon_id",
+        "updated_at",
+        "created_at",
+        "pivot" => [
+          "user_id",
+          "group_id",
+          "updated_at",
+          "created_at"
+        ]
+      ]
+    ]);
+  }
+
+  public function testUserPostsAreListedCorrectly()
+  {
+    $response = $this->json('get', '/api/user/posts/1', [], $this->headers())
+    ->assertStatus(200)
+    ->assertJsonStructure([
+      '*' => [
+        "content",
+        "rating",
+        "user_id",
+        "group_id",
+        "updated_at",
+        "created_at"
+      ]
+    ]);
+  }
 }
