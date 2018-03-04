@@ -94,4 +94,62 @@ class GroupTest extends TestCase
       ]
     ]);
   }
+
+
+  public function testGroupsAreSearchedCorrectly()
+  {
+    $response = $this->json('get', '/api/search/group?name=IT', [], $this->headers())
+    ->assertStatus(200)
+    ->assertJsonStructure([
+      '*' => [
+        "name",
+        "description",
+        "background_image",
+        "icon_id",
+        "updated_at",
+        "created_at"
+      ]
+    ]);
+  }
+
+
+  public function testGroupsContentIsSearchedCorrectly()
+  {
+    $response = $this->json('get', '/api/group/search/2?content=lorem', [], $this->headers())
+    ->assertStatus(200)
+    ->assertJsonStructure([
+      '*' => [
+        "content",
+        "rating",
+        "user_id",
+        "group_id",
+        "updated_at",
+        "created_at"
+      ]
+    ]);
+  }
+
+
+  public function testGroupUsersAreListedCorrectly()
+  {
+    $response = $this->json('get', '/api/group/users/2', [], $this->headers())
+    ->assertStatus(200)
+    ->assertJsonStructure([
+      '*' => [
+        "name",
+        "surname",
+        "avatar",
+        "email",
+        "birth_date",
+        "updated_at",
+        "created_at",
+        "pivot" => [
+          "group_id",
+          "user_id",
+          "updated_at",
+          "created_at"
+        ]
+      ]
+    ]);
+  }
 }
