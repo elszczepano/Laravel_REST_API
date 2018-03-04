@@ -25,10 +25,10 @@ Route::group([
     'votes' => 'VoteController'
   ]);
 
-  Route::get('notification/user/{user}', 'NotificationController@userNotifications');
+  Route::get('notifications/user/{user}', 'NotificationController@userNotifications');
   Route::get('user/groups/{user}', 'UserController@userGroups');
   Route::get('group/users/{group}', 'GroupController@groupUsers');
-  Route::get('group/posts/{group}', 'PostController@groupPosts');
+  Route::get('group/posts/{group}', 'GroupController@groupPosts');
   Route::get('user/posts/{user}', 'UserController@userPosts');
   Route::get('post/comments/{post}', 'PostController@postComments');
   Route::get('post/votes/{post}', 'PostController@postVotes');
