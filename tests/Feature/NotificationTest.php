@@ -86,4 +86,18 @@ class NotificationTest extends TestCase
       ]
     ]);
   }
+  public function testNotificationsOfUserAreListedCorrectly()
+  {
+    $response = $this->json('get', '/api/notifications/user/1', [], $this->headers())
+    ->assertStatus(200)
+    ->assertJsonStructure([
+      '*' => [
+        "content",
+        "user_id",
+        "read",
+        "updated_at",
+        "created_at"
+      ]
+    ]);
+  }
 }
