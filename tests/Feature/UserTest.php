@@ -111,4 +111,19 @@ class UserTest extends TestCase
       ]
     ]);
   }
+
+  public function testUserVotesAreListedCorrectly()
+  {
+    $response = $this->json('get', '/api/user/votes/1', [], $this->headers())
+    ->assertStatus(200)
+    ->assertJsonStructure([
+      '*' => [
+        "user_id",
+        "post_id",
+        "voted",
+        "updated_at",
+        "created_at"
+      ]
+    ]);
+  }
 }
