@@ -34,4 +34,5 @@ Route::group([
   Route::get('post/votes/{post}', 'PostController@postVotes');
   Route::get('user/votes/{user}', 'UserController@userVotes');
   Route::get('search/group', 'GroupController@searchGroups');
+  Route::get('group/search/{group}', 'GroupController@searchByContent');
 });

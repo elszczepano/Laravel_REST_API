@@ -34,6 +34,13 @@ class GroupController extends Controller
   }
 
 
+  public function searchByContent(Request $request,Group $group)
+  {
+    $content = $request->get('content');
+    return $group->post()->where('content', 'like', '%'.$content.'%')->get();
+  }
+
+
   public function groupUsers(Group $group)
   {
     return $group->user()->get();
