@@ -112,6 +112,22 @@ class GroupTest extends TestCase
     ]);
   }
 
+  public function testGroupPostsAreSearchedCorrectly()
+  {
+    $response = $this->json('get', '/api/group/posts/2', [], $this->headers())
+    ->assertStatus(200)
+    ->assertJsonStructure([
+      '*' => [
+        "content",
+        "rating",
+        "user_id",
+        "group_id",
+        "updated_at",
+        "created_at"
+      ]
+    ]);
+  }
+
 
   public function testGroupsContentIsSearchedCorrectly()
   {
