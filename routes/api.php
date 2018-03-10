@@ -22,7 +22,8 @@ Route::group([
     'notifications' => 'NotificationController',
     'comments' => 'CommentController',
     'user-groups' => 'UserGroupsController',
-    'votes' => 'VoteController'
+    'votes' => 'VoteController',
+    'join-requests' => 'JoinRequestsController'
   ]);
 
   Route::get('notifications/user/{user}', 'NotificationController@userNotifications');
@@ -35,4 +36,5 @@ Route::group([
   Route::get('user/votes/{user}', 'UserController@userVotes');
   Route::get('search/group', 'GroupController@searchGroups');
   Route::get('group/search/{group}', 'GroupController@searchByContent');
+  Route::get('group/requests/{group}', 'GroupController@showJoinRequests');
 });
