@@ -1,6 +1,5 @@
 # Laravel REST API
 
-----
 ## How to install
 
 Install dependencies via Composer
@@ -30,7 +29,7 @@ Start local server
 
 Enter a correct path... and use it!
 
-##About
+## About
 
 I use this API in my other project -> [LINK HERE](https://github.com/elszczepano/Social_Network_React)
 
