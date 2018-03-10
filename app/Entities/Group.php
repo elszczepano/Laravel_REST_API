@@ -30,4 +30,9 @@ class Group extends Model implements Transformable
     {
       return $this->hasMany(Role::class);
     }
+
+    public function joinRequests()
+    {
+      return $this->hasMany(JoinRequests::class);
+    }
 }
