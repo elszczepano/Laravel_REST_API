@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Entities\Group;
-use App\Repositories\GroupRepository;
-use App\Validators\GroupValidator;
+use App\Entities\JoinRequests;
+use App\Repositories\JoinRequestsRepository;
+use App\Validators\JoinRequestsValidator;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 
-class GroupController extends Controller
+class JoinRequestsController extends Controller
 {
   protected $repository;
   protected $validator;
 
-  public function __construct(GroupRepository $repository, GroupValidator $validator)
+  public function __construct(JoinRequestsRepository $repository, JoinRequestsValidator $validator)
   {
     $this->repository = $repository;
     $this->validator = $validator;
@@ -27,45 +27,15 @@ class GroupController extends Controller
   }
 
 
-  public function searchGroups(Request $request, Group $group)
-  {
-    $name = $request->get('name');
-    return $group->where('name', 'like', '%'.$name.'%')->get();
-  }
-
-
-  public function searchByContent(Request $request,Group $group)
-  {
-    $content = $request->get('content');
-    return $group->post()->where('content', 'like', '%'.$content.'%')->get();
-  }
-
-
-  public function groupUsers(Group $group)
-  {
-    return $group->user()->get();
-  }
-
-  public function showJoinRequests(Group $group)
-  {
-    return $group->joinRequests()->get();
-  }
-
-  public function groupPosts(Group $group)
-  {
-    return $group->post()->get();
-  }
-
-
   public function store(Request $request)
   {
     try {
       $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-      $group = $this->repository->createGroup($request->all());
+      $joinRequest = $this->repository->createJoinRequest($request->all(), $request->get('user_id'), $request->get('group_id'));
       $response = [
-        'message' => 'Group created succesfully',
-        'data' => $group
+        'message' => 'Join request created succesfully',
+        'data' => $joinRequest
       ];
       return response()->json($response, 201);
 
@@ -78,9 +48,9 @@ class GroupController extends Controller
   }
 
 
-  public function show(Group $group)
+  public function show(JoinRequests $joinRequest)
   {
-    return response()->json($group);
+    return response()->json($joinRequest);
   }
 
 
@@ -89,11 +59,12 @@ class GroupController extends Controller
     try {
       $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-      $group = $this->repository->editGroup($request->all(), $id);
+      $joinRequest = $this->repository->editJoinRequest($request->all(), $id);
       $response = [
-        'message' => 'Group updated succesfully',
-        'data' => $group
+        'message' => 'Join request updated succesfully',
+        'data' => $joinRequest
       ];
+
       return response()->json($response);
 
     } catch (ValidatorException $e) {
@@ -109,7 +80,7 @@ class GroupController extends Controller
   {
     $deleted = $this->repository->delete($id);
     return response()->json([
-      'message' => 'Group deleted succesfully',
+      'message' => 'Join request deleted succesfully',
       'deleted' => $deleted,
     ]);
   }
