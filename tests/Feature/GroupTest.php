@@ -168,4 +168,20 @@ class GroupTest extends TestCase
       ]
     ]);
   }
+
+
+  public function testGroupRequestsAreListedCorrectly()
+  {
+    $response = $this->json('get', '/api/group/requests/2', $this->headers())
+    ->assertStatus(200)
+    ->assertJsonStructure([
+      '*' => [
+        "user_id",
+        "group_id",
+        "approved",
+        "updated_at",
+        "created_at"
+      ]
+    ]);
+  }
 }
