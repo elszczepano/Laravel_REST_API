@@ -16,7 +16,7 @@ class User extends Authenticatable implements Transformable, JWTSubject
   use TransformableTrait;
 
   protected $fillable = ['name', 'surname', 'avatar', 'email', 'birth_date', 'password'];
-  protected $hidden = ['id', 'password'];
+  protected $hidden = ['password'];
   protected $dates = ['deleted_at'];
 
 
