@@ -26,7 +26,7 @@ Route::group([
     'join-requests' => 'JoinRequestsController'
   ]);
 
-  Route::get('notifications/user/{user}', 'NotificationController@userNotifications');
+  Route::get('user/notifications/{user}', 'NotificationController@userNotifications');
   Route::get('user/groups/{user}', 'UserController@userGroups');
   Route::get('group/users/{group}', 'GroupController@groupUsers');
   Route::get('group/posts/{group}', 'GroupController@groupPosts');
