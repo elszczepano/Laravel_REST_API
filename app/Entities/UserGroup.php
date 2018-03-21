@@ -14,4 +14,22 @@ class UserGroup extends Model implements Transformable
 
   protected $fillable = ['user_id', 'group_id', 'role_id'];
   protected $dates = ['deleted_at'];
+
+
+  public function user()
+  {
+    return $this->belongsTo(User::class);
+  }
+
+
+  public function group()
+  {
+    return $this->belongsTo(Group::class);
+  }
+
+
+  public function role()
+  {
+    return $this->belongsTo(Role::class);
+  }
 }
