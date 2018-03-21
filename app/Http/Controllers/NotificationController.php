@@ -24,7 +24,7 @@ class NotificationController extends Controller
 
   public function index()
   {
-    return $this->repository->get();
+    return $this->repository->with('user')->get();
   }
 
 
@@ -55,9 +55,9 @@ class NotificationController extends Controller
   }
 
 
-  public function show(Notification $notification)
+  public function show($id)
   {
-    return response()->json($notification);
+    return $this->repository->with('user')->get()->where('id','=',$id)->first();
   }
 
 

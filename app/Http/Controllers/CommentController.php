@@ -23,7 +23,7 @@ class CommentController extends Controller
 
   public function index()
   {
-    return $this->repository->get();
+    return $this->repository->with('user')->with('post')->get();
   }
 
 
@@ -48,9 +48,9 @@ class CommentController extends Controller
   }
 
 
-  public function show(Comment $comment)
+  public function show($id)
   {
-    return response()->json($comment);
+    return $this->repository->with('user')->with('post')->get()->where('id','=',$id)->first();
   }
 
 

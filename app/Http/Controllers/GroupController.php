@@ -23,7 +23,7 @@ class GroupController extends Controller
 
   public function index()
   {
-    return $this->repository->get();
+    return $this->repository->with('icon')->get();
   }
 
 
@@ -78,9 +78,9 @@ class GroupController extends Controller
   }
 
 
-  public function show(Group $group)
+  public function show($id)
   {
-    return response()->json($group);
+    return $this->repository->with('icon')->get()->where('id','=',$id)->first();
   }
 
 

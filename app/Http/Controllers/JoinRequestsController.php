@@ -23,7 +23,7 @@ class JoinRequestsController extends Controller
 
   public function index()
   {
-    return $this->repository->get();
+    return $this->repository->with('group')->with('user')->get();
   }
 
 
@@ -48,11 +48,10 @@ class JoinRequestsController extends Controller
   }
 
 
-  public function show(JoinRequests $joinRequest)
+  public function show($id)
   {
-    return response()->json($joinRequest);
+    return $this->repository->with('user')->with('group')->get()->where('id','=',$id)->first();
   }
-
 
   public function update(Request $request, $id)
   {
@@ -64,7 +63,6 @@ class JoinRequestsController extends Controller
         'message' => 'Join request updated succesfully',
         'data' => $joinRequest
       ];
-
       return response()->json($response);
 
     } catch (ValidatorException $e) {

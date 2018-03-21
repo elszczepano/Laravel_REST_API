@@ -23,7 +23,7 @@ class PostController extends Controller
 
   public function index()
   {
-    return $this->repository->get();
+    return $this->repository->with('user')->with('group')->get();
   }
 
 
@@ -60,9 +60,9 @@ class PostController extends Controller
   }
 
 
-  public function show(Post $post)
+  public function show($id)
   {
-    return response()->json($post);
+    return $this->repository->with('user')->with('group')->get()->where('id','=',$id)->first();
   }
 
 

@@ -23,7 +23,7 @@ class UserGroupsController extends Controller
 
   public function index()
   {
-    return $this->repository->get();
+    return $this->repository->with('user')->with('group')->with('role')->get();
   }
 
 
@@ -48,9 +48,9 @@ class UserGroupsController extends Controller
   }
 
 
-  public function show(UserGroup $userGroup)
+  public function show($id)
   {
-    return response()->json($userGroup);
+    return $this->repository->with('user')->with('group')->with('role')->get()->where('id','=',$id)->first();
   }
 
 

@@ -23,7 +23,7 @@ class VoteController extends Controller
 
   public function index()
   {
-    return $this->repository->get();
+    return $this->repository->with('post')->with('user')->get();
   }
 
 
@@ -48,9 +48,9 @@ class VoteController extends Controller
   }
 
 
-  public function show(Vote $vote)
+  public function show($id)
   {
-    return response()->json($vote);
+    return $this->repository->with('user')->with('post')->get()->where('id','=',$id)->first();
   }
 
 
