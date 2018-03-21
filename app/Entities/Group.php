@@ -21,14 +21,19 @@ class Group extends Model implements Transformable
       return $this->belongsToMany(User::class, 'user_groups')->withTimestamps();
     }
 
+    public function role()
+    {
+      return $this->hasMany(Role::class);
+    }
+
     public function post()
     {
       return $this->hasMany(Post::class);
     }
 
-    public function role()
+    public function icon()
     {
-      return $this->hasMany(Role::class);
+      return $this->belongsTo(Icon::class);
     }
 
     public function joinRequests()
