@@ -23,7 +23,8 @@ Route::group([
     'comments' => 'CommentController',
     'user-groups' => 'UserGroupsController',
     'votes' => 'VoteController',
-    'join-requests' => 'JoinRequestsController'
+    'join-requests' => 'JoinRequestsController',
+    'support' => 'SupportController'
   ]);
 
   Route::get('user/notifications/{user}', 'NotificationController@userNotifications');
