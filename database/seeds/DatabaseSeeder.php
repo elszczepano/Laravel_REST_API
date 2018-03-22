@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
         CommentTableSeeder::class,
         NotificationTableSeeder::class,
         VoteTableSeeder::class,
-        JoinRequestsTableSeeder::class
+        JoinRequestsTableSeeder::class,
+        SupportTableSeeder::class,
       ]);
     }
 }
