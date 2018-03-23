@@ -29,13 +29,13 @@ class UserController extends Controller
 
   public function userGroups(User $user)
   {
-    return $user->group()->get();
+    return $user->group()->with('icon')->get();
   }
 
 
   public function userPosts(User $user)
   {
-    return $user->post()->get();
+    return $user->post()->with('user')->with('group')->get();
   }
 
 
