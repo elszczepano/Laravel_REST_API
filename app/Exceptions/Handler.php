@@ -57,6 +57,11 @@ class Handler extends ExceptionHandler
       ], 401);
     }
 
-    return parent::render($request, $exception);
+    return response()->json( [
+      'success' => false,
+      'message' => 'Server error occured'
+    ], 500);
+    //leave it for debugging purposes
+    //return parent::render($request, $exception);
   }
 }
