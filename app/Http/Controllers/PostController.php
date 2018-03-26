@@ -29,13 +29,13 @@ class PostController extends Controller
 
   public function postVotes(Post $post)
   {
-    return $post->vote()->get();
+    return $post->vote()->with('user')->with('post')->get();
   }
 
 
   public function postComments(Post $post)
   {
-    return $post->comment()->get();
+    return $post->comment()->with('user')->with('post')->get();
   }
 
 

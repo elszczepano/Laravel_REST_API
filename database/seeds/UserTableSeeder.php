@@ -27,7 +27,6 @@ class UserTableSeeder extends Seeder
         $user -> surname = ('Doe');
         $user -> email = ('jackdoe@example.com');
         $user -> birth_date = $faker->dateTime;
-      
         $user -> password = bcrypt('secret');
         $user -> save();
     }

@@ -41,7 +41,7 @@ class UserController extends Controller
 
   public function userVotes(User $user)
   {
-    return $user->vote()->get();
+    return $user->vote()->with('user')->with('post')->get();
   }
 
 

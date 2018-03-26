@@ -30,14 +30,14 @@ class GroupController extends Controller
   public function searchGroups(Request $request, Group $group)
   {
     $name = $request->get('name');
-    return $group->where('name', 'like', '%'.$name.'%')->get();
+    return $group->where('name', 'like', '%'.$name.'%')->with('icon')->get();
   }
 
 
   public function searchByContent(Request $request,Group $group)
   {
     $content = $request->get('content');
-    return $group->post()->where('content', 'like', '%'.$content.'%')->get();
+    return $group->post()->where('content', 'like', '%'.$content.'%')->with('user')->with('group')->get();
   }
 
 
@@ -48,12 +48,12 @@ class GroupController extends Controller
 
   public function showJoinRequests(Group $group)
   {
-    return $group->joinRequests()->get();
+    return $group->joinRequests()->with('user')->with('group')->get();
   }
 
   public function groupPosts(Group $group)
   {
-    return $group->post()->get();
+    return $group->post()->with('group')->with('user')->get();
   }
 
 

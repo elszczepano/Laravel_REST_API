@@ -30,7 +30,7 @@ class NotificationController extends Controller
 
   public function userNotifications(User $user)
   {
-    return $user->notification()->get();
+    return $user->notification()->with('user')->get();
   }
 
 
