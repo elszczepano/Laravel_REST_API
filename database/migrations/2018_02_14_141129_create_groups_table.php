@@ -18,7 +18,7 @@ class CreateGroupsTable extends Migration
       $table->string('name');
       $table->text('description')->nullable();
       $table->text('background_image')->nullable();
-      $table->integer('icon_id')->unsigned();
+      $table->integer('icon_id')->unsigned()->default(1);
       $table->timestamps();
       $table->softDeletes();
 

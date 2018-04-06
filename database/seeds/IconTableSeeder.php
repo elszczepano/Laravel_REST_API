@@ -8,6 +8,7 @@ class IconTableSeeder extends Seeder
     public function run()
     {
       $icons = [
+        'group',
         'address-book',
         'address-card',
         'envelope',
@@ -45,7 +46,6 @@ class IconTableSeeder extends Seeder
         'glass',
         'gift',
         'globe',
-        'group',
         'heart',
         'home',
         'key',
