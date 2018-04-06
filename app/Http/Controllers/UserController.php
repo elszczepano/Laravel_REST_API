@@ -35,7 +35,7 @@ class UserController extends Controller
 
   public function userPosts(User $user)
   {
-    return $user->post()->with('user')->with('group')->get();
+    return $user->post()->with('user')->with('group')->orderBy('created_at', 'desc')->get();
   }
 
 

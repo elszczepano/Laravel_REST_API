@@ -43,7 +43,7 @@ class GroupController extends Controller
 
   public function groupUsers(Group $group)
   {
-    return $group->user()->get();
+    return $group->user()->orderBy('created_at', 'desc')->get();
   }
 
   public function showJoinRequests(Group $group)
@@ -53,7 +53,7 @@ class GroupController extends Controller
 
   public function groupPosts(Group $group)
   {
-    return $group->post()->with('group')->with('user')->get();
+    return $group->post()->with('group')->with('user')->orderBy('created_at', 'desc')->get();
   }
 
 

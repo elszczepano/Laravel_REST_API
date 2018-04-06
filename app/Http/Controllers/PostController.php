@@ -35,7 +35,7 @@ class PostController extends Controller
 
   public function postComments(Post $post)
   {
-    return $post->comment()->with('user')->with('post')->get();
+    return $post->comment()->with('user')->with('post')->orderBy('created_at', 'desc')->get();
   }
 
 
