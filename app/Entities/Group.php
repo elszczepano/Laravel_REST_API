@@ -13,7 +13,6 @@ class Group extends Model implements Transformable
     use TransformableTrait;
 
     protected $fillable = ['name', 'description','background_image', 'icon_id'];
-    protected $hidden = ['id'];
     protected $dates = ['deleted_at'];
 
     public function user()
