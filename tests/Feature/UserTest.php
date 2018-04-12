@@ -38,6 +38,7 @@ class UserTest extends TestCase
         "surname",
         "avatar",
         "email",
+        "description",
         "birth_date",
         "updated_at",
         "created_at"
@@ -67,6 +68,7 @@ class UserTest extends TestCase
         "surname",
         "avatar",
         "email",
+        "description",
         "birth_date",
         "updated_at",
         "created_at"

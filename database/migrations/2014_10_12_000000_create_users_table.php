@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
       $table->string('avatar')->nullable()->default('https://i.imgur.com/zwKXWvz.png');
       $table->string('email')->unique();
       $table->date('birth_date')->nullable();
+      $table->string('description')->nullable();
       $table->string('password');
       $table->timestamps();
       $table->softDeletes();
