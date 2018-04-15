@@ -23,7 +23,7 @@ class UserValidator extends LaravelValidator
           'surname' => 'max:255',
           'email' => 'required|unique:users,email|max:255|email',
           'birth_date' => 'date|date_format:Y-m-d|before:tomorrow',
-          'background_image' => 'image',
+          'avatar' => 'image',
           'password' => 'required|min:6|max:255'
         ],
         ValidatorInterface::RULE_UPDATE => [
@@ -31,7 +31,7 @@ class UserValidator extends LaravelValidator
           'surname' => 'max:255',
           'email' => 'unique:users,email|max:255|email',
           'birth_date' => 'date|date_format:Y-m-d|before:tomorrow',
-          'background_image' => 'image',
+          'avatar' => 'image',
           'password' => 'min:6|max:255'
         ],
     ];
