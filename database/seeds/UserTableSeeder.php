@@ -19,7 +19,6 @@ class UserTableSeeder extends Seeder
         $user -> email = ('johndoe@example.com');
         $user -> birth_date = $faker->dateTime;
         $user -> description = $faker->text;
-        $user -> avatar = $faker->imageUrl(400, 300);
         $user -> password = bcrypt('secret');
         $user -> save();
 
