@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
       $table->date('birth_date')->nullable();
       $table->string('description')->nullable();
       $table->string('password');
+      $table->string('leave_reason')->nullable();
       $table->timestamps();
       $table->softDeletes();
     });
