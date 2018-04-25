@@ -15,7 +15,7 @@ class User extends Authenticatable implements Transformable, JWTSubject
   use SoftDeletes;
   use TransformableTrait;
 
-  protected $fillable = ['name', 'surname', 'avatar', 'email', 'birth_date', 'password'];
+  protected $fillable = ['name', 'surname', 'avatar', 'email', 'birth_date', 'password', 'description', 'leave_reason'];
   protected $hidden = ['password'];
   protected $dates = ['deleted_at'];
 
