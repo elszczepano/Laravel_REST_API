@@ -23,7 +23,7 @@ Route::group([
     'comments' => 'CommentController',
     'user-groups' => 'UserGroupsController',
     'votes' => 'VoteController',
-    'join-requests' => 'JoinRequestsController',
+    'requests' => 'JoinRequestsController',
     'support' => 'SupportController'
   ]);
 

@@ -27,7 +27,7 @@ class JoinRequestsTest extends TestCase
       'approved' => false
     ];
 
-    $this->json('post', '/api/join-requests', $payload, $this->headers())
+    $this->json('post', '/api/requests', $payload, $this->headers())
     ->assertStatus(201)
     ->assertJsonStructure([
       "message",
@@ -49,7 +49,7 @@ class JoinRequestsTest extends TestCase
       'approved' => true
     ];
 
-    $response = $this->json('put', '/api/join-requests/' . $joinRequest->id, $payload, $this->headers())
+    $response = $this->json('put', '/api/requests/' . $joinRequest->id, $payload, $this->headers())
     ->assertStatus(200)
     ->assertJsonStructure([
       "message",
@@ -67,7 +67,7 @@ class JoinRequestsTest extends TestCase
   {
     $joinRequest = JoinRequests::orderBy('id', 'desc')->first();
 
-    $this->json('delete', '/api/join-requests/' . $joinRequest->id, [], $this->headers())
+    $this->json('delete', '/api/requests/' . $joinRequest->id, [], $this->headers())
     ->assertStatus(200)
     ->assertJsonStructure([
       "message",
@@ -77,13 +77,13 @@ class JoinRequestsTest extends TestCase
 
   public function testJoinRequestsAreListedCorrectly()
   {
-    $response = $this->json('get', '/api/user-groups', [], $this->headers())
+    $response = $this->json('get', '/api/requests', [], $this->headers())
     ->assertStatus(200)
     ->assertJsonStructure([
       '*' => [
         "user_id",
         "group_id",
-        "role_id",
+        "approved",
         "updated_at",
         "created_at"
       ]
