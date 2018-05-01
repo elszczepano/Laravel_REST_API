@@ -14,7 +14,6 @@ class Post extends Model implements Transformable
     use TransformableTrait;
 
     protected $fillable = ['content', 'rating', 'user_id', 'group_id'];
-    protected $hidden = ['id'];
     protected $dates = ['deleted_at'];
 
     public function comment()

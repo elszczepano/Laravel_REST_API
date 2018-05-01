@@ -13,7 +13,6 @@ class Notification extends Model implements Transformable
     use TransformableTrait;
 
     protected $fillable = ['content', 'user_id', 'read'];
-    protected $hidden = ['id'];
     protected $dates = ['deleted_at'];
 
     public function user()

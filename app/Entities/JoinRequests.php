@@ -13,7 +13,6 @@ class JoinRequests extends Model implements Transformable
     use TransformableTrait;
 
     protected $fillable = ['user_id', 'group_id', 'approved'];
-    protected $hidden = ['id'];
     protected $dates = ['deleted_at'];
 
     public function user()

@@ -13,7 +13,6 @@ class Comment extends Model implements Transformable
     use TransformableTrait;
 
     protected $fillable = ['content', 'user_id', 'post_id'];
-    protected $hidden = ['id'];
     protected $dates = ['deleted_at'];
 
     public function user()

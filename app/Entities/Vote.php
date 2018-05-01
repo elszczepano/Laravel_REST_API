@@ -13,7 +13,6 @@ class Vote extends Model implements Transformable
   use TransformableTrait;
 
   protected $fillable = ['user_id', 'post_id', 'voted'];
-  protected $hidden = ['id'];
 
   public function user()
   {
