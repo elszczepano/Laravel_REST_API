@@ -43,7 +43,7 @@ class GroupController extends Controller
 
   public function groupUsers(Group $group)
   {
-    return $group->user()->orderBy('created_at', 'desc')->get();
+    return $group->user()->with('role')->orderBy('created_at', 'desc')->get();
   }
 
   public function showJoinRequests(Group $group)
