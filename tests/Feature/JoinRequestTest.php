@@ -23,8 +23,7 @@ class JoinRequestsTest extends TestCase
   {
     $payload = [
       'user_id' => 2,
-      'group_id' => 2,
-      'approved' => false
+      'group_id' => 2
     ];
 
     $this->json('post', '/api/requests', $payload, $this->headers())
@@ -33,8 +32,7 @@ class JoinRequestsTest extends TestCase
       "message",
       "data" => [
         "user_id",
-        "group_id",
-        "approved",
+        "group_id"
         "updated_at",
         "created_at"
       ]
@@ -55,8 +53,7 @@ class JoinRequestsTest extends TestCase
       "message",
       "data" => [
         "user_id",
-        "group_id",
-        "approved",
+        "group_id"
         "updated_at",
         "created_at"
       ]
@@ -82,8 +79,7 @@ class JoinRequestsTest extends TestCase
     ->assertJsonStructure([
       '*' => [
         "user_id",
-        "group_id",
-        "approved",
+        "group_id"
         "updated_at",
         "created_at"
       ]

@@ -10,13 +10,11 @@ class JoinRequestsValidator extends LaravelValidator
   protected $rules = [
       ValidatorInterface::RULE_CREATE => [
         'user_id' => 'required|exists:users,id|integer',
-        'group_id' => 'required|exists:groups,id|integer',
-        'approved' => 'boolean'
+        'group_id' => 'required|exists:groups,id|integer'
       ],
       ValidatorInterface::RULE_UPDATE => [
         'user_id' => 'exists:users,id|integer',
-        'group_id' => 'exists:groups,id|integer',
-        'role_id' => 'boolean'
+        'group_id' => 'exists:groups,id|integer'
       ],
   ];
 }

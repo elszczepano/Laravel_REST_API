@@ -13,20 +13,13 @@ class JoinRequestsTableSeeder extends Seeder
     public function run()
     {
       $joinRequests = new JoinRequests();
-      $joinRequests -> user_id = (1);
-      $joinRequests -> group_id = (1);
-      $joinRequests -> approved = (true);
-      $joinRequests -> save();
-
-      $joinRequests = new JoinRequests();
       $joinRequests -> user_id = (2);
-      $joinRequests -> group_id = (2);
+      $joinRequests -> group_id = (1);
       $joinRequests -> save();
 
       $joinRequests = new JoinRequests();
       $joinRequests -> user_id = (1);
       $joinRequests -> group_id = (2);
-      $joinRequests -> approved = (false);
       $joinRequests -> save();
     }
 }

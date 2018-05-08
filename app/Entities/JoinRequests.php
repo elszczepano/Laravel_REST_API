@@ -12,7 +12,7 @@ class JoinRequests extends Model implements Transformable
     use SoftDeletes;
     use TransformableTrait;
 
-    protected $fillable = ['user_id', 'group_id', 'approved'];
+    protected $fillable = ['user_id', 'group_id'];
     protected $dates = ['deleted_at'];
 
     public function user()
