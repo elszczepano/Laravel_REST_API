@@ -37,12 +37,12 @@ class User extends Authenticatable implements Transformable, JWTSubject
 
   public function group()
   {
-    return $this->belongsToMany(Group::class, 'user_groups')->withTimestamps();
+    return $this->belongsToMany(Group::class, 'user_groups')->whereNull('user_groups.deleted_at')->withPivot('id')->withTimestamps();
   }
 
   public function role()
   {
-    return $this->belongsToMany(Role::class, 'user_groups')->withTimestamps();
+    return $this->belongsToMany(Role::class, 'user_groups')->whereNull('user_groups.deleted_at')->withPivot('id')->withTimestamps();
   }
 
   public function vote()
